@@ -1,0 +1,24 @@
+type Post {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	title: String!
+	text: String!
+	author: String!
+}
+
+type User {
+	id: ID! @unique
+	password: String!
+	name: String! @unique
+	role: [Role!]!
+}
+
+enum Role {
+	CUSTOMER
+	ADMIN
+	SUB_ADMIN_1
+	SUB_ADMIN_2
+	SUB_ADMIN_3
+	SUB_ADMIN_4
+}

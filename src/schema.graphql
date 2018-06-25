@@ -1,0 +1,24 @@
+# import * from "./generated/prisma.graphql"
+
+directive @hasRole(role: [Role]) on FIELD | FIELD_DEFINITION
+directive @isAuthenticated on FIELD | FIELD_DEFINITION
+
+type Query {
+	#auth
+	login(name: String!, password: String!): AuthPayload
+	me: User @isAuthenticated
+}
+
+type Mutation {
+	# admin
+	subAdminSignUp(data: UserCreateInput!): AuthPayload @hasRole(role: [ADMIN])
+	# auth
+	signUp(data: UserCreateInput!): AuthPayload
+	#user
+	updateProfile(data: UserUpdateInput!): User @isAuthenticated
+}
+
+type AuthPayload {
+	token: String
+	user: User
+}
