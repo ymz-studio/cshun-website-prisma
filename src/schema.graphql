@@ -9,6 +9,7 @@ type Query {
 	me: User @isAuthenticated
 }
 
+
 type Mutation {
 	# admin
 	subAdminSignUp(data: UserCreateInput!): AuthPayload @hasRole(role: [ADMIN])
@@ -22,3 +23,4 @@ type AuthPayload {
 	token: String
 	user: User
 }
+

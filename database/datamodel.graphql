@@ -10,7 +10,7 @@ type Post {
 type User {
 	id: ID! @unique
 	password: String!
-	name: String! @unique
+	name: String! @unique 
 	role: [Role!]!
 }
 
