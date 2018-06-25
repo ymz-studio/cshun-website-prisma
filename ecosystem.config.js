@@ -6,8 +6,9 @@ module.exports = {
 	apps: [
 		// First application
 		{
-			name: 'API',
-			npm: 'start',
+			name: 'cshun-website-prisma',
+			script: 'npm',
+			args: 'start',
 			env: {
 				COMMON_VARIABLE: 'true'
 			},
