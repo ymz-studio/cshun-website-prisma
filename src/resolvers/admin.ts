@@ -1,6 +1,13 @@
 import { getUserId, Context, AuthError } from '../utils';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+
+export const Query = {
+	async users(parent, args, ctx: Context, info) {
+		return await ctx.db.query.users(args, info);
+	}
+};
+
 export const Mutation = {
 	async subAdminSignUp(parent, { data }, ctx: Context, info) {
 		const user = await ctx.db.mutation.createUser({

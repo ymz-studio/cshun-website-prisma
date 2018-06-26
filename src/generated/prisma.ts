@@ -479,6 +479,8 @@ type User implements Node {
   password: String!
   name: String!
   role: [Role!]!
+  createdAt: DateTime!
+  lastLoginAt: DateTime
 }
 
 """A connection to a list of items."""
@@ -494,6 +496,7 @@ type UserConnection {
 input UserCreateInput {
   password: String!
   name: String!
+  lastLoginAt: DateTime
   role: UserCreateroleInput
 }
 
@@ -517,10 +520,12 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  lastLoginAt_ASC
+  lastLoginAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -528,6 +533,8 @@ type UserPreviousValues {
   password: String!
   name: String!
   role: [Role!]!
+  createdAt: DateTime!
+  lastLoginAt: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -572,6 +579,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   password: String
   name: String
+  lastLoginAt: DateTime
   role: UserUpdateroleInput
 }
 
@@ -708,6 +716,50 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  lastLoginAt: DateTime
+
+  """All values that are not equal to given value."""
+  lastLoginAt_not: DateTime
+
+  """All values that are contained in given list."""
+  lastLoginAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastLoginAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastLoginAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastLoginAt_lte: DateTime
+
+  """All values greater than the given value."""
+  lastLoginAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastLoginAt_gte: DateTime
 }
 
 input UserWhereUniqueInput {
@@ -752,10 +804,12 @@ export type UserOrderByInput =   'id_ASC' |
   'password_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'lastLoginAt_ASC' |
+  'lastLoginAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export interface PostCreateInput {
   title: String
@@ -852,6 +906,7 @@ export interface UserUpdateroleInput {
 export interface UserCreateInput {
   password: String
   name: String
+  lastLoginAt?: DateTime
   role?: UserCreateroleInput
 }
 
@@ -884,6 +939,7 @@ export interface PostSubscriptionWhereInput {
 export interface UserUpdateInput {
   password?: String
   name?: String
+  lastLoginAt?: DateTime
   role?: UserUpdateroleInput
 }
 
@@ -944,6 +1000,22 @@ export interface UserWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  lastLoginAt?: DateTime
+  lastLoginAt_not?: DateTime
+  lastLoginAt_in?: DateTime[] | DateTime
+  lastLoginAt_not_in?: DateTime[] | DateTime
+  lastLoginAt_lt?: DateTime
+  lastLoginAt_lte?: DateTime
+  lastLoginAt_gt?: DateTime
+  lastLoginAt_gte?: DateTime
 }
 
 /*
@@ -972,6 +1044,8 @@ export interface UserPreviousValues {
   password: String
   name: String
   role: Role[]
+  createdAt: DateTime
+  lastLoginAt?: DateTime
 }
 
 export interface BatchPayload {
@@ -1029,6 +1103,8 @@ export interface User extends Node {
   password: String
   name: String
   role: Role[]
+  createdAt: DateTime
+  lastLoginAt?: DateTime
 }
 
 /*

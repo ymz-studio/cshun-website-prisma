@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Mon Jun 25 2018 01:59:44 GMT+0800 (GMT+08:00)
+# timestamp: Tue Jun 26 2018 17:57:52 GMT+0800 (GMT+08:00)
 
 type AggregatePost {
   count: Int!
@@ -420,6 +420,8 @@ type User implements Node {
   password: String!
   name: String!
   role: [Role!]!
+  createdAt: DateTime!
+  lastLoginAt: DateTime
 }
 
 """A connection to a list of items."""
@@ -435,6 +437,7 @@ type UserConnection {
 input UserCreateInput {
   password: String!
   name: String!
+  lastLoginAt: DateTime
   role: UserCreateroleInput
 }
 
@@ -458,10 +461,12 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  lastLoginAt_ASC
+  lastLoginAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -469,6 +474,8 @@ type UserPreviousValues {
   password: String!
   name: String!
   role: [Role!]!
+  createdAt: DateTime!
+  lastLoginAt: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -513,6 +520,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   password: String
   name: String
+  lastLoginAt: DateTime
   role: UserUpdateroleInput
 }
 
@@ -649,6 +657,50 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  lastLoginAt: DateTime
+
+  """All values that are not equal to given value."""
+  lastLoginAt_not: DateTime
+
+  """All values that are contained in given list."""
+  lastLoginAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastLoginAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastLoginAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastLoginAt_lte: DateTime
+
+  """All values greater than the given value."""
+  lastLoginAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastLoginAt_gte: DateTime
 }
 
 input UserWhereUniqueInput {

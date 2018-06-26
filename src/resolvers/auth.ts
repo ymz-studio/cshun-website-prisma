@@ -20,7 +20,7 @@ export const Mutation = {
 		if (!valid) {
 			throw new Error('密码错误, 请重新输入');
 		}
-
+		await ctx.db.mutation.updateUser({ where: { name }, data: { lastLoginAt: new Date() } });
 		return {
 			token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
 			user

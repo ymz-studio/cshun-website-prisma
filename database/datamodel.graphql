@@ -10,12 +10,13 @@ type Post {
 type User {
 	id: ID! @unique
 	password: String!
-	name: String! @unique 
+	name: String! @unique
 	role: [Role!]!
+	createdAt: DateTime!
+	lastLoginAt: DateTime
 }
 
 enum Role {
-	CUSTOMER
 	ADMIN
 	SUB_ADMIN_1
 	SUB_ADMIN_2

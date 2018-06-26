@@ -1,20 +1,30 @@
 # import * from "./generated/prisma.graphql"
 
 directive @hasRole(role: [Role]) on FIELD | FIELD_DEFINITION
+
 directive @isAuthenticated on FIELD | FIELD_DEFINITION
 
 type Query {
+	#admin
+	users(
+		where: UserWhereInput
+		orderBy: UserOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [User] @hasRole(role: [ADMIN])
 	#auth
-	login(name: String!, password: String!): AuthPayload
 	me: User @isAuthenticated
 }
-
 
 type Mutation {
 	# admin
 	subAdminSignUp(data: UserCreateInput!): AuthPayload @hasRole(role: [ADMIN])
 	# auth
 	signUp(data: UserCreateInput!): AuthPayload
+	login(name: String!, password: String!): AuthPayload
 	#user
 	updateProfile(data: UserUpdateInput!): User @isAuthenticated
 }
@@ -23,4 +33,3 @@ type AuthPayload {
 	token: String
 	user: User
 }
-
