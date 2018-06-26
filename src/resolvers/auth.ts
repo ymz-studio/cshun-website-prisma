@@ -6,8 +6,10 @@ export const Query = {
 	me(parent, args, ctx: Context, info) {
 		const id = getUserId(ctx);
 		return ctx.db.query.user({ where: { id } }, info);
-	},
+	}
+};
 
+export const Mutation = {
 	async login(parent, { name, password }, ctx: Context, info) {
 		const user = await ctx.db.query.user({ where: { name } });
 		if (!user) {
@@ -23,10 +25,7 @@ export const Query = {
 			token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
 			user
 		};
-	}
-};
-
-export const Mutation = {
+	},
 	async signUp(parent, { data }, ctx: Context, info) {
 		const password = bcrypt.hashSync(data.password, 10);
 		const user = await ctx.db.mutation.createUser({
