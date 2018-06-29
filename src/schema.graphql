@@ -22,6 +22,8 @@ type Query {
 type Mutation {
 	# admin
 	subAdminSignUp(data: UserCreateInput!): AuthPayload @hasRole(role: [ADMIN])
+	subAdminUpdate(data: UserUpdateInput!, id: ID!): User @hasRole(role: [ADMIN])
+	subAdminDelete(id: ID!): User @hasRole(role: [ADMIN])
 	# auth
 	signUp(data: UserCreateInput!): AuthPayload
 	login(name: String!, password: String!): AuthPayload

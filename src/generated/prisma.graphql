@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Tue Jun 26 2018 17:57:52 GMT+0800 (GMT+08:00)
+# timestamp: Fri Jun 29 2018 21:27:39 GMT+0800 (GMT+08:00)
 
 type AggregatePost {
   count: Int!
@@ -402,7 +402,6 @@ type Query {
 }
 
 enum Role {
-  CUSTOMER
   ADMIN
   SUB_ADMIN_1
   SUB_ADMIN_2
@@ -419,7 +418,7 @@ type User implements Node {
   id: ID!
   password: String!
   name: String!
-  role: [Role!]!
+  role: [Role!]
   createdAt: DateTime!
   lastLoginAt: DateTime
 }
@@ -473,7 +472,7 @@ type UserPreviousValues {
   id: ID!
   password: String!
   name: String!
-  role: [Role!]!
+  role: [Role!]
   createdAt: DateTime!
   lastLoginAt: DateTime
 }

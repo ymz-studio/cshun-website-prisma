@@ -461,7 +461,6 @@ type Query {
 }
 
 enum Role {
-  CUSTOMER
   ADMIN
   SUB_ADMIN_1
   SUB_ADMIN_2
@@ -478,7 +477,7 @@ type User implements Node {
   id: ID!
   password: String!
   name: String!
-  role: [Role!]!
+  role: [Role!]
   createdAt: DateTime!
   lastLoginAt: DateTime
 }
@@ -532,7 +531,7 @@ type UserPreviousValues {
   id: ID!
   password: String!
   name: String!
-  role: [Role!]!
+  role: [Role!]
   createdAt: DateTime!
   lastLoginAt: DateTime
 }
@@ -774,8 +773,7 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
-export type Role =   'CUSTOMER' |
-  'ADMIN' |
+export type Role =   'ADMIN' |
   'SUB_ADMIN_1' |
   'SUB_ADMIN_2' |
   'SUB_ADMIN_3' |
@@ -1043,7 +1041,7 @@ export interface UserPreviousValues {
   id: ID_Output
   password: String
   name: String
-  role: Role[]
+  role?: Role[]
   createdAt: DateTime
   lastLoginAt?: DateTime
 }
@@ -1102,7 +1100,7 @@ export interface User extends Node {
   id: ID_Output
   password: String
   name: String
-  role: Role[]
+  role?: Role[]
   createdAt: DateTime
   lastLoginAt?: DateTime
 }
