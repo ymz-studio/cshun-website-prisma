@@ -4,6 +4,8 @@ directive @hasRole(role: [Role]) on FIELD | FIELD_DEFINITION
 
 directive @isAuthenticated on FIELD | FIELD_DEFINITION
 
+scalar Upload
+
 type Query {
 	#admin
 	users(
@@ -17,6 +19,8 @@ type Query {
 	): [User] @hasRole(role: [ADMIN])
 	#auth
 	me: User @isAuthenticated
+	# file
+	uploads: [File]
 }
 
 type Mutation {
@@ -27,8 +31,10 @@ type Mutation {
 	# auth
 	signUp(data: UserCreateInput!): AuthPayload
 	login(name: String!, password: String!): AuthPayload
-	#user
+	# user
 	updateProfile(data: UserUpdateInput!): User @isAuthenticated
+	# file
+	singleUpload(file: Upload!): File! # Upload为Apollo Server自动添加
 }
 
 type AuthPayload {

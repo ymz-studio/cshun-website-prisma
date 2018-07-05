@@ -3,7 +3,7 @@ import { Prisma } from './generated/prisma'
 
 export interface Context {
   db: Prisma
-  request: any
+  request: Headers
 }
 
 export function getUserId(ctx: Context) {

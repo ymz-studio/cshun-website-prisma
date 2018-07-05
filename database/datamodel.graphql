@@ -16,6 +16,15 @@ type User {
 	lastLoginAt: DateTime
 }
 
+type File {
+	id: ID! @unique
+	url: String!
+	filename: String!
+	mimetype: String!
+	encoding: String!
+	createdAt: DateTime!
+}
+
 enum Role {
 	ADMIN
 	SUB_ADMIN_1
