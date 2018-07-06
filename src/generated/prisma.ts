@@ -111,6 +111,7 @@ type Business implements Node {
   url: String!
   img(where: FileWhereInput): File!
   isFeatured: Boolean
+  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -154,10 +155,10 @@ enum BusinessOrderByInput {
   url_DESC
   isFeatured_ASC
   isFeatured_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type BusinessPreviousValues {
@@ -167,6 +168,7 @@ type BusinessPreviousValues {
   tel: String!
   url: String!
   isFeatured: Boolean
+  createdAt: DateTime!
 }
 
 type BusinessSubscriptionPayload {
@@ -430,6 +432,28 @@ input BusinessWhereInput {
 
   """All values that are not equal to given value."""
   isFeatured_not: Boolean
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   img: FileWhereInput
 }
 
@@ -1591,10 +1615,10 @@ export type BusinessOrderByInput =   'id_ASC' |
   'url_DESC' |
   'isFeatured_ASC' |
   'isFeatured_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export interface PostCreateInput {
   title: String
@@ -2050,6 +2074,14 @@ export interface BusinessWhereInput {
   url_not_ends_with?: String
   isFeatured?: Boolean
   isFeatured_not?: Boolean
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
   img?: FileWhereInput
 }
 
@@ -2081,6 +2113,7 @@ export interface BusinessPreviousValues {
   tel: String
   url: String
   isFeatured?: Boolean
+  createdAt: DateTime
 }
 
 export interface BatchPayload {
@@ -2190,6 +2223,7 @@ export interface Business extends Node {
   url: String
   img: File
   isFeatured?: Boolean
+  createdAt: DateTime
 }
 
 export interface FileSubscriptionPayload {

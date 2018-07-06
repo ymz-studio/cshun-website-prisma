@@ -33,6 +33,7 @@ type Business {
 	url: String!
 	img: File!
 	isFeatured: Boolean @default(value: false)
+	createdAt: DateTime!
 }
 
 enum Role {

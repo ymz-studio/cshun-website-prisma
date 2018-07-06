@@ -28,7 +28,7 @@ module.exports = {
 			ref: 'origin/master',
 			repo: 'https://github.com/ymz-studio/cshun-website-prisma.git',
 			path: '/home/wsq/cshun-website-prisma',
-			'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
+			'post-deploy': 'yarn install && pm2 reload ecosystem.config.js --env production'
 		}
 	}
 };

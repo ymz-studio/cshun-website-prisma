@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Fri Jul 06 2018 16:39:39 GMT+0800 (GMT+08:00)
+# timestamp: Fri Jul 06 2018 21:42:12 GMT+0800 (GMT+08:00)
 
 type AggregateBusiness {
   count: Int!
@@ -30,6 +30,7 @@ type Business implements Node {
   url: String!
   img(where: FileWhereInput): File!
   isFeatured: Boolean
+  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -73,10 +74,10 @@ enum BusinessOrderByInput {
   url_DESC
   isFeatured_ASC
   isFeatured_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type BusinessPreviousValues {
@@ -86,6 +87,7 @@ type BusinessPreviousValues {
   tel: String!
   url: String!
   isFeatured: Boolean
+  createdAt: DateTime!
 }
 
 type BusinessSubscriptionPayload {
@@ -349,6 +351,28 @@ input BusinessWhereInput {
 
   """All values that are not equal to given value."""
   isFeatured_not: Boolean
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   img: FileWhereInput
 }
 
