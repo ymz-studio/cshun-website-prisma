@@ -25,10 +25,21 @@ type File {
 	createdAt: DateTime!
 }
 
+type Business {
+	id: ID! @unique
+	name: String!
+	description: String!
+	tel: String!
+	url: String!
+	img: File!
+	isFeatured: Boolean @default(value: false)
+}
+
 enum Role {
 	ADMIN
 	SUB_ADMIN_1
 	SUB_ADMIN_2
 	SUB_ADMIN_3
 	SUB_ADMIN_4
+	SUB_ADMIN_5
 }

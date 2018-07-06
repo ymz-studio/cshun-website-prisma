@@ -1,9 +1,9 @@
-import { getUserId, Context, AuthError } from '../utils';
+import { Context } from '../utils';
 import { Stream } from 'stream';
 import { createWriteStream, createReadStream, statSync } from 'fs';
 import * as path from 'path';
 import * as shortid from 'shortid';
-const COS = require('cos-nodejs-sdk-v5');
+import * as COS from 'cos-nodejs-sdk-v5';
 const cos = new COS({
 	SecretId: process.env.COS_SECRET_ID,
 	SecretKey: process.env.COS_SECRET_KEY
@@ -15,6 +15,7 @@ interface Upload {
 	mimetype: string;
 	encoding: string;
 }
+
 
 export const Query = {
 	uploads(parent, args, ctx: Context, info) {
@@ -31,7 +32,7 @@ const saveUpload = async (file: Upload) => {
 	const ContentLength = statSync(cachePath).size;
 	return { cachePath, cacheID, ContentLength };
 };
-// 上传至COS
+
 const putToCos = async ({ cachePath, cacheID, ContentLength }) => {
 	const data = await new Promise((resolve, reject) => {
 		cos.putObject(
@@ -39,7 +40,7 @@ const putToCos = async ({ cachePath, cacheID, ContentLength }) => {
 				Bucket: 'cshun-1253962968',
 				Region: 'ap-chengdu',
 				Key: cacheID,
-				ContentLength,
+				ContentLength, // File Size
 				Body: createReadStream(cachePath),
 				onProgress(progress) {
 					console.log(progress);
@@ -55,7 +56,6 @@ const putToCos = async ({ cachePath, cacheID, ContentLength }) => {
 	});
 	return data['Location'];
 };
-
 export const Mutation = {
 	async singleUpload(parent, args: { file: Upload }, ctx: Context, info) {
 		const file = await args.file;

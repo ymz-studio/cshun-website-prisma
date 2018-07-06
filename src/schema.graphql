@@ -21,6 +21,16 @@ type Query {
 	me: User @isAuthenticated
 	# file
 	uploads: [File]
+	# business
+	businesses(
+		where: BusinessWhereInput
+		orderBy: BusinessOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Business]!
 }
 
 type Mutation {
@@ -35,6 +45,19 @@ type Mutation {
 	updateProfile(data: UserUpdateInput!): User @isAuthenticated
 	# file
 	singleUpload(file: Upload!): File! # Upload为Apollo Server自动添加
+	# business
+	createBusiness(data: BusinessCreateInput!): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
+		@hasRole(role: [ADMIN, SUB_ADMIN_1])
+	deleteBusiness(where: BusinessWhereUniqueInput!): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	upsertBusiness(
+		where: BusinessWhereUniqueInput!
+		create: BusinessCreateInput!
+		update: BusinessUpdateInput!
+	): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput): BatchPayload!
+		@hasRole(role: [ADMIN, SUB_ADMIN_1])
+	deleteManyBusinesses(where: BusinessWhereInput): BatchPayload! @hasRole(role: [ADMIN, SUB_ADMIN_1])
 }
 
 type AuthPayload {
