@@ -106,11 +106,8 @@ type BatchPayload {
 type Business implements Node {
   id: ID!
   name: String!
-  description: String!
-  tel: String!
   url: String!
   img(where: FileWhereInput): File!
-  isFeatured: Boolean
   createdAt: DateTime!
 }
 
@@ -126,10 +123,7 @@ type BusinessConnection {
 
 input BusinessCreateInput {
   name: String!
-  description: String!
-  tel: String!
   url: String!
-  isFeatured: Boolean
   img: FileCreateOneInput!
 }
 
@@ -147,14 +141,8 @@ enum BusinessOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  description_ASC
-  description_DESC
-  tel_ASC
-  tel_DESC
   url_ASC
   url_DESC
-  isFeatured_ASC
-  isFeatured_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -164,10 +152,7 @@ enum BusinessOrderByInput {
 type BusinessPreviousValues {
   id: ID!
   name: String!
-  description: String!
-  tel: String!
   url: String!
-  isFeatured: Boolean
   createdAt: DateTime!
 }
 
@@ -212,10 +197,7 @@ input BusinessSubscriptionWhereInput {
 
 input BusinessUpdateInput {
   name: String
-  description: String
-  tel: String
   url: String
-  isFeatured: Boolean
   img: FileUpdateOneInput
 }
 
@@ -308,86 +290,6 @@ input BusinessWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  tel: String
-
-  """All values that are not equal to given value."""
-  tel_not: String
-
-  """All values that are contained in given list."""
-  tel_in: [String!]
-
-  """All values that are not contained in given list."""
-  tel_not_in: [String!]
-
-  """All values less than the given value."""
-  tel_lt: String
-
-  """All values less than or equal the given value."""
-  tel_lte: String
-
-  """All values greater than the given value."""
-  tel_gt: String
-
-  """All values greater than or equal the given value."""
-  tel_gte: String
-
-  """All values containing the given string."""
-  tel_contains: String
-
-  """All values not containing the given string."""
-  tel_not_contains: String
-
-  """All values starting with the given string."""
-  tel_starts_with: String
-
-  """All values not starting with the given string."""
-  tel_not_starts_with: String
-
-  """All values ending with the given string."""
-  tel_ends_with: String
-
-  """All values not ending with the given string."""
-  tel_not_ends_with: String
   url: String
 
   """All values that are not equal to given value."""
@@ -428,10 +330,6 @@ input BusinessWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
-  isFeatured: Boolean
-
-  """All values that are not equal to given value."""
-  isFeatured_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -1241,7 +1139,6 @@ enum Role {
   SUB_ADMIN_2
   SUB_ADMIN_3
   SUB_ADMIN_4
-  SUB_ADMIN_5
 }
 
 type Subscription {
@@ -1564,29 +1461,15 @@ export type UserOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type MutationType =   'CREATED' |
-  'UPDATED' |
-  'DELETED'
-
 export type Role =   'ADMIN' |
   'SUB_ADMIN_1' |
   'SUB_ADMIN_2' |
   'SUB_ADMIN_3' |
-  'SUB_ADMIN_4' |
-  'SUB_ADMIN_5'
+  'SUB_ADMIN_4'
 
-export type PostOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'text_ASC' |
-  'text_DESC' |
-  'author_ASC' |
-  'author_DESC'
+export type MutationType =   'CREATED' |
+  'UPDATED' |
+  'DELETED'
 
 export type FileOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -1603,22 +1486,36 @@ export type FileOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
+export type PostOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'author_ASC' |
+  'author_DESC'
+
 export type BusinessOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'description_ASC' |
-  'description_DESC' |
-  'tel_ASC' |
-  'tel_DESC' |
   'url_ASC' |
   'url_DESC' |
-  'isFeatured_ASC' |
-  'isFeatured_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
+
+export interface FileUpdateDataInput {
+  url?: String
+  filename?: String
+  mimetype?: String
+  encoding?: String
+}
 
 export interface PostCreateInput {
   title: String
@@ -1626,7 +1523,7 @@ export interface PostCreateInput {
   author: String
 }
 
-export interface FileWhereUniqueInput {
+export interface BusinessWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -1708,8 +1605,12 @@ export interface PostWhereInput {
   author_not_ends_with?: String
 }
 
-export interface BusinessWhereUniqueInput {
-  id?: ID_Input
+export interface FileUpdateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+  delete?: Boolean
+  update?: FileUpdateDataInput
+  upsert?: FileUpsertNestedInput
 }
 
 export interface UserWhereInput {
@@ -1778,11 +1679,116 @@ export interface UserWhereInput {
 
 export interface BusinessUpdateInput {
   name?: String
-  description?: String
-  tel?: String
   url?: String
-  isFeatured?: Boolean
   img?: FileUpdateOneInput
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface FileUpdateInput {
+  url?: String
+  filename?: String
+  mimetype?: String
+  encoding?: String
+}
+
+export interface BusinessWhereInput {
+  AND?: BusinessWhereInput[] | BusinessWhereInput
+  OR?: BusinessWhereInput[] | BusinessWhereInput
+  NOT?: BusinessWhereInput[] | BusinessWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  url?: String
+  url_not?: String
+  url_in?: String[] | String
+  url_not_in?: String[] | String
+  url_lt?: String
+  url_lte?: String
+  url_gt?: String
+  url_gte?: String
+  url_contains?: String
+  url_not_contains?: String
+  url_starts_with?: String
+  url_not_starts_with?: String
+  url_ends_with?: String
+  url_not_ends_with?: String
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  img?: FileWhereInput
+}
+
+export interface UserUpdateroleInput {
+  set?: Role[] | Role
+}
+
+export interface BusinessSubscriptionWhereInput {
+  AND?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  OR?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  NOT?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BusinessWhereInput
+}
+
+export interface UserUpdateInput {
+  password?: String
+  name?: String
+  lastLoginAt?: DateTime
+  role?: UserUpdateroleInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  name?: String
+}
+
+export interface PostUpdateInput {
+  title?: String
+  text?: String
+  author?: String
 }
 
 export interface PostSubscriptionWhereInput {
@@ -1796,11 +1802,49 @@ export interface PostSubscriptionWhereInput {
   node?: PostWhereInput
 }
 
-export interface FileUpdateInput {
-  url?: String
-  filename?: String
-  mimetype?: String
-  encoding?: String
+export interface FileCreateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+}
+
+export interface FileUpsertNestedInput {
+  update: FileUpdateDataInput
+  create: FileCreateInput
+}
+
+export interface UserCreateInput {
+  password: String
+  name: String
+  lastLoginAt?: DateTime
+  role?: UserCreateroleInput
+}
+
+export interface UserCreateroleInput {
+  set?: Role[] | Role
+}
+
+export interface FileCreateInput {
+  url: String
+  filename: String
+  mimetype: String
+  encoding: String
+}
+
+export interface BusinessCreateInput {
+  name: String
+  url: String
+  img: FileCreateOneInput
+}
+
+export interface FileSubscriptionWhereInput {
+  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FileWhereInput
 }
 
 export interface FileWhereInput {
@@ -1887,202 +1931,12 @@ export interface FileWhereInput {
   createdAt_gte?: DateTime
 }
 
-export interface UserUpdateroleInput {
-  set?: Role[] | Role
-}
-
-export interface FileUpsertNestedInput {
-  update: FileUpdateDataInput
-  create: FileCreateInput
-}
-
-export interface UserUpdateInput {
-  password?: String
-  name?: String
-  lastLoginAt?: DateTime
-  role?: UserUpdateroleInput
-}
-
-export interface FileUpdateDataInput {
-  url?: String
-  filename?: String
-  mimetype?: String
-  encoding?: String
-}
-
-export interface PostUpdateInput {
-  title?: String
-  text?: String
-  author?: String
-}
-
-export interface FileUpdateOneInput {
-  create?: FileCreateInput
-  connect?: FileWhereUniqueInput
-  delete?: Boolean
-  update?: FileUpdateDataInput
-  upsert?: FileUpsertNestedInput
-}
-
-export interface FileCreateOneInput {
-  create?: FileCreateInput
-  connect?: FileWhereUniqueInput
-}
-
-export interface UserWhereUniqueInput {
+export interface FileWhereUniqueInput {
   id?: ID_Input
-  name?: String
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
-export interface UserCreateInput {
-  password: String
-  name: String
-  lastLoginAt?: DateTime
-  role?: UserCreateroleInput
-}
-
-export interface UserCreateroleInput {
-  set?: Role[] | Role
-}
-
-export interface FileCreateInput {
-  url: String
-  filename: String
-  mimetype: String
-  encoding: String
-}
-
-export interface BusinessCreateInput {
-  name: String
-  description: String
-  tel: String
-  url: String
-  isFeatured?: Boolean
-  img: FileCreateOneInput
-}
-
-export interface FileSubscriptionWhereInput {
-  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FileWhereInput
 }
 
 export interface PostWhereUniqueInput {
   id?: ID_Input
-}
-
-export interface BusinessSubscriptionWhereInput {
-  AND?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  OR?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  NOT?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BusinessWhereInput
-}
-
-export interface BusinessWhereInput {
-  AND?: BusinessWhereInput[] | BusinessWhereInput
-  OR?: BusinessWhereInput[] | BusinessWhereInput
-  NOT?: BusinessWhereInput[] | BusinessWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  tel?: String
-  tel_not?: String
-  tel_in?: String[] | String
-  tel_not_in?: String[] | String
-  tel_lt?: String
-  tel_lte?: String
-  tel_gt?: String
-  tel_gte?: String
-  tel_contains?: String
-  tel_not_contains?: String
-  tel_starts_with?: String
-  tel_not_starts_with?: String
-  tel_ends_with?: String
-  tel_not_ends_with?: String
-  url?: String
-  url_not?: String
-  url_in?: String[] | String
-  url_not_in?: String[] | String
-  url_lt?: String
-  url_lte?: String
-  url_gt?: String
-  url_gte?: String
-  url_contains?: String
-  url_not_contains?: String
-  url_starts_with?: String
-  url_not_starts_with?: String
-  url_ends_with?: String
-  url_not_ends_with?: String
-  isFeatured?: Boolean
-  isFeatured_not?: Boolean
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  img?: FileWhereInput
 }
 
 /*
@@ -2109,10 +1963,7 @@ export interface File extends Node {
 export interface BusinessPreviousValues {
   id: ID_Output
   name: String
-  description: String
-  tel: String
   url: String
-  isFeatured?: Boolean
   createdAt: DateTime
 }
 
@@ -2206,23 +2057,22 @@ export interface PostPreviousValues {
 }
 
 /*
- * A connection to a list of items.
+ * Information about pagination in a connection.
 
  */
-export interface PostConnection {
-  pageInfo: PageInfo
-  edges: PostEdge[]
-  aggregate: AggregatePost
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
 }
 
-export interface Business extends Node {
+export interface FilePreviousValues {
   id: ID_Output
-  name: String
-  description: String
-  tel: String
   url: String
-  img: File
-  isFeatured?: Boolean
+  filename: String
+  mimetype: String
+  encoding: String
   createdAt: DateTime
 }
 
@@ -2233,12 +2083,11 @@ export interface FileSubscriptionPayload {
   previousValues?: FilePreviousValues
 }
 
-export interface FilePreviousValues {
+export interface Business extends Node {
   id: ID_Output
+  name: String
   url: String
-  filename: String
-  mimetype: String
-  encoding: String
+  img: File
   createdAt: DateTime
 }
 
@@ -2262,22 +2111,21 @@ export interface AggregateBusiness {
   count: Int
 }
 
+/*
+ * A connection to a list of items.
+
+ */
+export interface PostConnection {
+  pageInfo: PageInfo
+  edges: PostEdge[]
+  aggregate: AggregatePost
+}
+
 export interface BusinessSubscriptionPayload {
   mutation: MutationType
   node?: Business
   updatedFields?: String[]
   previousValues?: BusinessPreviousValues
-}
-
-/*
- * Information about pagination in a connection.
-
- */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
 }
 
 export interface AggregatePost {
@@ -2315,17 +2163,17 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean
-
-/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number
 export type ID_Output = string
 
 export type DateTime = Date | string
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.

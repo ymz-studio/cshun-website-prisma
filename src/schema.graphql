@@ -50,14 +50,6 @@ type Mutation {
 	updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
 		@hasRole(role: [ADMIN, SUB_ADMIN_1])
 	deleteBusiness(where: BusinessWhereUniqueInput!): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
-	upsertBusiness(
-		where: BusinessWhereUniqueInput!
-		create: BusinessCreateInput!
-		update: BusinessUpdateInput!
-	): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
-	updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput): BatchPayload!
-		@hasRole(role: [ADMIN, SUB_ADMIN_1])
-	deleteManyBusinesses(where: BusinessWhereInput): BatchPayload! @hasRole(role: [ADMIN, SUB_ADMIN_1])
 }
 
 type AuthPayload {
