@@ -31,6 +31,8 @@ type Query {
 		first: Int
 		last: Int
 	): [Business]!
+
+	fileObject(filename:String!):String
 }
 
 type Mutation {
@@ -45,6 +47,7 @@ type Mutation {
 	updateProfile(data: UserUpdateInput!): User @isAuthenticated
 	# file
 	singleUpload(file: Upload!): File! # Upload为Apollo Server自动添加
+	createFileObjectRequest(filename: String!,mimeType:String!):FileObjectRequest
 	# business
 	createBusiness(data: BusinessCreateInput!): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
 	updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
@@ -55,4 +58,9 @@ type Mutation {
 type AuthPayload {
 	token: String
 	user: User
+}
+
+type FileObjectRequest {
+	filename: String,
+	presignedUrl: String
 }
