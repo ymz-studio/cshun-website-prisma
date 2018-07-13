@@ -31,6 +31,44 @@ type Query {
 		first: Int
 		last: Int
 	): [Business]!
+
+	hotels(
+		where: HotelWhereInput
+		orderBy: HotelOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Hotel]!
+
+	foods(
+		where: FoodWhereInput
+		orderBy: FoodOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Food]!
+	posts(
+		where: PostWhereInput
+		orderBy: PostOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Post]!
+	questions(
+		where: QuestionWhereInput
+		orderBy: QuestionOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Question]!
 }
 
 type Mutation {
@@ -46,10 +84,35 @@ type Mutation {
 	# file
 	singleUpload(file: Upload!): File! # Upload为Apollo Server自动添加
 	# business
-	createBusiness(data: BusinessCreateInput!): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
-	updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
+	createBusiness(data: BusinessCreateInput!): Business!
 		@hasRole(role: [ADMIN, SUB_ADMIN_1])
-	deleteBusiness(where: BusinessWhereUniqueInput!): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	updateBusiness(
+		data: BusinessUpdateInput!
+		where: BusinessWhereUniqueInput!
+	): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	deleteBusiness(where: BusinessWhereUniqueInput!): Business
+		@hasRole(role: [ADMIN, SUB_ADMIN_1])
+
+	createHotel(data: HotelCreateInput!): Hotel!
+	createFood(data: FoodCreateInput!): Food!
+	createPost(data: PostCreateInput!): Post!
+	createQuestion(data: QuestionCreateInput!): Question!
+	createAnswer(data: AnswerCreateInput!): Answer!
+
+	updateHotel(data: HotelUpdateInput!, where: HotelWhereUniqueInput!): Hotel
+	updateFood(data: FoodUpdateInput!, where: FoodWhereUniqueInput!): Food
+	updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+	updateQuestion(
+		data: QuestionUpdateInput!
+		where: QuestionWhereUniqueInput!
+	): Question
+	updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer
+
+	deleteHotel(where: HotelWhereUniqueInput!): Hotel
+	deleteFood(where: FoodWhereUniqueInput!): Food
+	deletePost(where: PostWhereUniqueInput!): Post
+	deleteQuestion(where: QuestionWhereUniqueInput!): Question
+	deleteAnswer(where: AnswerWhereUniqueInput!): Answer
 }
 
 type AuthPayload {
