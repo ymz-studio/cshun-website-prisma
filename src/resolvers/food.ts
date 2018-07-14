@@ -1,11 +1,9 @@
-import { Context } from "../utils";
-import { FoodCreateInput } from "../generated/prisma";
-import { isURL, isLength } from "validator";
+import { Context } from '../utils';
+import { FoodCreateInput } from '../generated/prisma';
+import { isURL, isLength } from 'validator';
 
-function validateInput({ img, name }) {
-	if (!isURL(img)) throw new Error("URL格式错误");
-	if (!isLength(name, { min: 2, max: 15 }))
-		throw new Error("食物名称长度应大于2小于15");
+function validateInput({ name }) {
+	if (!isLength(name, { min: 2, max: 15 })) throw new Error('食物名称长度应大于2小于15');
 }
 
 export const Query = {
@@ -15,12 +13,7 @@ export const Query = {
 };
 
 export const Mutation = {
-	async createFood(
-		parent,
-		args: { data: FoodCreateInput },
-		ctx: Context,
-		info
-	) {
+	async createFood(parent, args: { data: FoodCreateInput }, ctx: Context, info) {
 		validateInput(args.data);
 		return await ctx.db.mutation.createFood(args, info);
 	},

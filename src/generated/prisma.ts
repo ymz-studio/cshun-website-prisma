@@ -1156,7 +1156,7 @@ input FileWhereUniqueInput {
 type Food implements Node {
   id: ID!
   name: String!
-  img: String!
+  img(where: FileWhereInput): File
 }
 
 """A connection to a list of items."""
@@ -1171,7 +1171,7 @@ type FoodConnection {
 
 input FoodCreateInput {
   name: String!
-  img: String!
+  img: FileCreateOneInput
 }
 
 """An edge in a connection."""
@@ -1188,8 +1188,6 @@ enum FoodOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  img_ASC
-  img_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1199,7 +1197,6 @@ enum FoodOrderByInput {
 type FoodPreviousValues {
   id: ID!
   name: String!
-  img: String!
 }
 
 type FoodSubscriptionPayload {
@@ -1243,7 +1240,7 @@ input FoodSubscriptionWhereInput {
 
 input FoodUpdateInput {
   name: String
-  img: String
+  img: FileUpdateOneInput
 }
 
 input FoodWhereInput {
@@ -1335,46 +1332,7 @@ input FoodWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  img: String
-
-  """All values that are not equal to given value."""
-  img_not: String
-
-  """All values that are contained in given list."""
-  img_in: [String!]
-
-  """All values that are not contained in given list."""
-  img_not_in: [String!]
-
-  """All values less than the given value."""
-  img_lt: String
-
-  """All values less than or equal the given value."""
-  img_lte: String
-
-  """All values greater than the given value."""
-  img_gt: String
-
-  """All values greater than or equal the given value."""
-  img_gte: String
-
-  """All values containing the given string."""
-  img_contains: String
-
-  """All values not containing the given string."""
-  img_not_contains: String
-
-  """All values starting with the given string."""
-  img_starts_with: String
-
-  """All values not starting with the given string."""
-  img_not_starts_with: String
-
-  """All values ending with the given string."""
-  img_ends_with: String
-
-  """All values not ending with the given string."""
-  img_not_ends_with: String
+  img: FileWhereInput
 }
 
 input FoodWhereUniqueInput {
@@ -1388,6 +1346,7 @@ type Hotel implements Node {
   introduction: String!
   houses: Json
   score: Int
+  img(where: FileWhereInput): File
   url: String!
 }
 
@@ -1408,6 +1367,7 @@ input HotelCreateInput {
   houses: Json
   score: Int
   url: String!
+  img: FileCreateOneInput
 }
 
 """An edge in a connection."""
@@ -1496,6 +1456,7 @@ input HotelUpdateInput {
   houses: Json
   score: Int
   url: String
+  img: FileUpdateOneInput
 }
 
 input HotelWhereInput {
@@ -1729,6 +1690,7 @@ input HotelWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  img: FileWhereInput
 }
 
 input HotelWhereUniqueInput {
@@ -2891,8 +2853,6 @@ export type FoodOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
   'name_DESC' |
-  'img_ASC' |
-  'img_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3229,7 +3189,7 @@ export interface FileWhereInput {
 
 export interface FoodUpdateInput {
   name?: String
-  img?: String
+  img?: FileUpdateOneInput
 }
 
 export interface PostWhereInput {
@@ -3321,6 +3281,7 @@ export interface HotelUpdateInput {
   houses?: Json
   score?: Int
   url?: String
+  img?: FileUpdateOneInput
 }
 
 export interface FoodSubscriptionWhereInput {
@@ -3583,6 +3544,7 @@ export interface HotelWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
+  img?: FileWhereInput
 }
 
 export interface AnswerCreateInput {
@@ -3624,20 +3586,7 @@ export interface FoodWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
-  img?: String
-  img_not?: String
-  img_in?: String[] | String
-  img_not_in?: String[] | String
-  img_lt?: String
-  img_lte?: String
-  img_gt?: String
-  img_gte?: String
-  img_contains?: String
-  img_not_contains?: String
-  img_starts_with?: String
-  img_not_starts_with?: String
-  img_ends_with?: String
-  img_not_ends_with?: String
+  img?: FileWhereInput
 }
 
 export interface AnswerCreateWithoutQuestionInput {
@@ -3769,7 +3718,7 @@ export interface AnswerWhereUniqueInput {
 
 export interface FoodCreateInput {
   name: String
-  img: String
+  img?: FileCreateOneInput
 }
 
 export interface FileSubscriptionWhereInput {
@@ -3790,6 +3739,7 @@ export interface HotelCreateInput {
   houses?: Json
   score?: Int
   url: String
+  img?: FileCreateOneInput
 }
 
 export interface QuestionUpsertWithoutAnswersInput {
@@ -3962,7 +3912,7 @@ export interface AggregateFood {
 export interface Food extends Node {
   id: ID_Output
   name: String
-  img: String
+  img?: File
 }
 
 /*
@@ -4029,6 +3979,7 @@ export interface Hotel extends Node {
   introduction: String
   houses?: Json
   score?: Int
+  img?: File
   url: String
 }
 
@@ -4202,7 +4153,6 @@ export interface QuestionSubscriptionPayload {
 export interface FoodPreviousValues {
   id: ID_Output
   name: String
-  img: String
 }
 
 export interface FoodSubscriptionPayload {

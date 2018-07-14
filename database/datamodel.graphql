@@ -1,5 +1,3 @@
-
-
 type User {
 	id: ID! @unique
 	password: String!
@@ -8,6 +6,7 @@ type User {
 	createdAt: DateTime!
 	lastLoginAt: DateTime
 }
+
 type File {
 	id: ID! @unique
 	url: String!
@@ -24,6 +23,7 @@ type Business {
 	img: File!
 	createdAt: DateTime!
 }
+
 type Hotel {
 	id: ID! @unique
 	name: String!
@@ -31,16 +31,17 @@ type Hotel {
 	introduction: String!
 	houses: Json
 	score: Int
+	img: File
 	url: String!
 }
 
 type Food {
 	id: ID! @unique
 	name: String!
-	img: String!
+	img: File
 }
 
-type Post{
+type Post {
 	id: ID! @unique
 	title: String!
 	category: PostCategory!
@@ -49,6 +50,7 @@ type Post{
 	updatedAt: DateTime!
 	createdAt: DateTime!
 }
+
 type Question {
 	id: ID! @unique
 	title: String!
@@ -57,6 +59,7 @@ type Question {
 	createdAt: DateTime!
 	answers: [Answer!]!
 }
+
 type Answer {
 	id: ID! @unique
 	question: Question
@@ -66,6 +69,7 @@ type Answer {
 	createdAt: DateTime!
 	author: String!
 }
+
 enum PostCategory {
 	ANIMAL_FARMING #牲口养殖
 	PLANTING #农务栽种
@@ -74,6 +78,7 @@ enum PostCategory {
 	NEWS #新闻中心
 	TREND #工作动态
 }
+
 enum Role {
 	ADMIN
 	SUB_ADMIN_1
