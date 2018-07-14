@@ -31,6 +31,44 @@ type Query {
 		first: Int
 		last: Int
 	): [Business]!
+
+	hotels(
+		where: HotelWhereInput
+		orderBy: HotelOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Hotel]!
+
+	foods(
+		where: FoodWhereInput
+		orderBy: FoodOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Food]!
+	posts(
+		where: PostWhereInput
+		orderBy: PostOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Post]!
+	questions(
+		where: QuestionWhereInput
+		orderBy: QuestionOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Question]!
 }
 
 type Mutation {
@@ -46,10 +84,35 @@ type Mutation {
 	# file
 	singleUpload(file: Upload!): File! # Upload为Apollo Server自动添加
 	# business
-	createBusiness(data: BusinessCreateInput!): Business! @hasRole(role: [ADMIN, SUB_ADMIN_1])
-	updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
+	createBusiness(data: BusinessCreateInput!): Business!
 		@hasRole(role: [ADMIN, SUB_ADMIN_1])
-	deleteBusiness(where: BusinessWhereUniqueInput!): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	updateBusiness(
+		data: BusinessUpdateInput!
+		where: BusinessWhereUniqueInput!
+	): Business @hasRole(role: [ADMIN, SUB_ADMIN_1])
+	deleteBusiness(where: BusinessWhereUniqueInput!): Business
+		@hasRole(role: [ADMIN, SUB_ADMIN_1])
+
+	createHotel(data: HotelCreateInput!): Hotel! @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	createFood(data: FoodCreateInput!): Food!  @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	createPost(data: PostCreateInput!): Post!  @hasRole(role: [ADMIN, SUB_ADMIN_2])
+	createQuestion(data: QuestionCreateInput!): Question! @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	createAnswer(data: AnswerCreateInput!): Answer!  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+
+	updateHotel(data: HotelUpdateInput!, where: HotelWhereUniqueInput!): Hotel  @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	updateFood(data: FoodUpdateInput!, where: FoodWhereUniqueInput!): Food  @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post @hasRole(role: [ADMIN, SUB_ADMIN_2])
+	updateQuestion(
+		data: QuestionUpdateInput!
+		where: QuestionWhereUniqueInput!
+	): Question  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+
+	deleteHotel(where: HotelWhereUniqueInput!): Hotel  @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	deleteFood(where: FoodWhereUniqueInput!): Food  @hasRole(role: [ADMIN, SUB_ADMIN_4])
+	deletePost(where: PostWhereUniqueInput!): Post @hasRole(role: [ADMIN, SUB_ADMIN_2])
+	deleteQuestion(where: QuestionWhereUniqueInput!): Question  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	deleteAnswer(where: AnswerWhereUniqueInput!): Answer  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 }
 
 type AuthPayload {

@@ -1,11 +1,4 @@
-type Post {
-	id: ID! @unique
-	createdAt: DateTime!
-	updatedAt: DateTime!
-	title: String!
-	text: String!
-	author: String!
-}
+
 
 type User {
 	id: ID! @unique
@@ -15,7 +8,6 @@ type User {
 	createdAt: DateTime!
 	lastLoginAt: DateTime
 }
-
 type File {
 	id: ID! @unique
 	url: String!
@@ -32,7 +24,56 @@ type Business {
 	img: File!
 	createdAt: DateTime!
 }
+type Hotel {
+	id: ID! @unique
+	name: String!
+	address: String!
+	introduction: String!
+	houses: Json
+	score: Int
+	url: String!
+}
 
+type Food {
+	id: ID! @unique
+	name: String!
+	img: String!
+}
+
+type Post{
+	id: ID! @unique
+	title: String!
+	category: PostCategory!
+	author: String!
+	content: String!
+	updatedAt: DateTime!
+	createdAt: DateTime!
+}
+type Question {
+	id: ID! @unique
+	title: String!
+	content: String!
+	updatedAt: DateTime!
+	createdAt: DateTime!
+	answers: [Answer!]!
+}
+type Answer {
+	id: ID! @unique
+	question: Question
+	title: String!
+	content: String!
+	updatedAt: DateTime!
+	createdAt: DateTime!
+	author: String!
+}
+enum PostCategory {
+	ANIMAL_FARMING #牲口养殖
+	PLANTING #农务栽种
+	FRUIT_CULTIVATION #水果培育
+	POLICY #扶贫政策
+	NEWS #新闻中心
+	TREND #工作动态
+}
 enum Role {
 	ADMIN
 	SUB_ADMIN_1
