@@ -2118,6 +2118,7 @@ type Post implements Node {
   id: ID!
   title: String!
   category: PostCategory!
+  isTop: Boolean!
   author: String!
   content: String!
   updatedAt: DateTime!
@@ -2146,6 +2147,7 @@ type PostConnection {
 input PostCreateInput {
   title: String!
   category: PostCategory!
+  isTop: Boolean
   author: String!
   content: String!
 }
@@ -2166,6 +2168,8 @@ enum PostOrderByInput {
   title_DESC
   category_ASC
   category_DESC
+  isTop_ASC
+  isTop_DESC
   author_ASC
   author_DESC
   content_ASC
@@ -2180,6 +2184,7 @@ type PostPreviousValues {
   id: ID!
   title: String!
   category: PostCategory!
+  isTop: Boolean!
   author: String!
   content: String!
   updatedAt: DateTime!
@@ -2228,6 +2233,7 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   title: String
   category: PostCategory
+  isTop: Boolean
   author: String
   content: String
 }
@@ -2331,6 +2337,10 @@ input PostWhereInput {
 
   """All values that are not contained in given list."""
   category_not_in: [PostCategory!]
+  isTop: Boolean
+
+  """All values that are not equal to given value."""
+  isTop_not: Boolean
   author: String
 
   """All values that are not equal to given value."""
@@ -3251,6 +3261,8 @@ export type PostOrderByInput =   'id_ASC' |
   'title_DESC' |
   'category_ASC' |
   'category_DESC' |
+  'isTop_ASC' |
+  'isTop_DESC' |
   'author_ASC' |
   'author_DESC' |
   'content_ASC' |
@@ -3260,7 +3272,7 @@ export type PostOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export interface PostWhereUniqueInput {
+export interface FoodWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3447,6 +3459,7 @@ export interface HotelWhereInput {
 export interface PostUpdateInput {
   title?: String
   category?: PostCategory
+  isTop?: Boolean
   author?: String
   content?: String
 }
@@ -3625,6 +3638,8 @@ export interface PostWhereInput {
   category_not?: PostCategory
   category_in?: PostCategory[] | PostCategory
   category_not_in?: PostCategory[] | PostCategory
+  isTop?: Boolean
+  isTop_not?: Boolean
   author?: String
   author_not?: String
   author_in?: String[] | String
@@ -3676,15 +3691,9 @@ export interface HouseUpdateWithWhereUniqueNestedInput {
   data: HouseUpdateDataInput
 }
 
-export interface FoodSubscriptionWhereInput {
-  AND?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  OR?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  NOT?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FoodWhereInput
+export interface QuestionUpsertWithoutAnswersInput {
+  update: QuestionUpdateWithoutAnswersDataInput
+  create: QuestionCreateWithoutAnswersInput
 }
 
 export interface HouseUpdateManyInput {
@@ -3696,10 +3705,25 @@ export interface HouseUpdateManyInput {
   upsert?: HouseUpsertWithWhereUniqueNestedInput[] | HouseUpsertWithWhereUniqueNestedInput
 }
 
-export interface QuestionWhereInput {
-  AND?: QuestionWhereInput[] | QuestionWhereInput
-  OR?: QuestionWhereInput[] | QuestionWhereInput
-  NOT?: QuestionWhereInput[] | QuestionWhereInput
+export interface QuestionUpdateWithoutAnswersDataInput {
+  title?: String
+  content?: String
+}
+
+export interface HotelUpdateInput {
+  name?: String
+  address?: String
+  introduction?: String
+  score?: Int
+  url?: String
+  houses?: HouseUpdateManyInput
+  img?: FileUpdateOneInput
+}
+
+export interface AnswerWhereInput {
+  AND?: AnswerWhereInput[] | AnswerWhereInput
+  OR?: AnswerWhereInput[] | AnswerWhereInput
+  NOT?: AnswerWhereInput[] | AnswerWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -3758,30 +3782,21 @@ export interface QuestionWhereInput {
   createdAt_lte?: DateTime
   createdAt_gt?: DateTime
   createdAt_gte?: DateTime
-  answers_every?: AnswerWhereInput
-  answers_some?: AnswerWhereInput
-  answers_none?: AnswerWhereInput
-}
-
-export interface HotelUpdateInput {
-  name?: String
-  address?: String
-  introduction?: String
-  score?: Int
-  url?: String
-  houses?: HouseUpdateManyInput
-  img?: FileUpdateOneInput
-}
-
-export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: PostWhereInput
+  author?: String
+  author_not?: String
+  author_in?: String[] | String
+  author_not_in?: String[] | String
+  author_lt?: String
+  author_lte?: String
+  author_gt?: String
+  author_gte?: String
+  author_contains?: String
+  author_not_contains?: String
+  author_starts_with?: String
+  author_not_starts_with?: String
+  author_ends_with?: String
+  author_not_ends_with?: String
+  question?: QuestionWhereInput
 }
 
 export interface FileUpsertNestedInput {
@@ -3789,15 +3804,13 @@ export interface FileUpsertNestedInput {
   create: FileCreateInput
 }
 
-export interface QuestionSubscriptionWhereInput {
-  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: QuestionWhereInput
+export interface QuestionUpdateOneWithoutAnswersInput {
+  create?: QuestionCreateWithoutAnswersInput
+  connect?: QuestionWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: QuestionUpdateWithoutAnswersDataInput
+  upsert?: QuestionUpsertWithoutAnswersInput
 }
 
 export interface FileUpdateDataInput {
@@ -3807,9 +3820,11 @@ export interface FileUpdateDataInput {
   encoding?: String
 }
 
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  name?: String
+export interface AnswerUpdateInput {
+  title?: String
+  content?: String
+  author?: String
+  question?: QuestionUpdateOneWithoutAnswersInput
 }
 
 export interface FileUpdateOneInput {
@@ -3820,7 +3835,7 @@ export interface FileUpdateOneInput {
   upsert?: FileUpsertNestedInput
 }
 
-export interface BusinessWhereUniqueInput {
+export interface FileWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3830,7 +3845,7 @@ export interface BusinessUpdateInput {
   img?: FileUpdateOneInput
 }
 
-export interface HouseWhereUniqueInput {
+export interface HotelWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3856,7 +3871,7 @@ export interface UserUpdateroleInput {
   set?: Role[] | Role
 }
 
-export interface AnswerWhereUniqueInput {
+export interface QuestionWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3955,10 +3970,10 @@ export interface AnswerCreateWithoutQuestionInput {
   author: String
 }
 
-export interface AnswerWhereInput {
-  AND?: AnswerWhereInput[] | AnswerWhereInput
-  OR?: AnswerWhereInput[] | AnswerWhereInput
-  NOT?: AnswerWhereInput[] | AnswerWhereInput
+export interface QuestionWhereInput {
+  AND?: QuestionWhereInput[] | QuestionWhereInput
+  OR?: QuestionWhereInput[] | QuestionWhereInput
+  NOT?: QuestionWhereInput[] | QuestionWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -4017,21 +4032,9 @@ export interface AnswerWhereInput {
   createdAt_lte?: DateTime
   createdAt_gt?: DateTime
   createdAt_gte?: DateTime
-  author?: String
-  author_not?: String
-  author_in?: String[] | String
-  author_not_in?: String[] | String
-  author_lt?: String
-  author_lte?: String
-  author_gt?: String
-  author_gte?: String
-  author_contains?: String
-  author_not_contains?: String
-  author_starts_with?: String
-  author_not_starts_with?: String
-  author_ends_with?: String
-  author_not_ends_with?: String
-  question?: QuestionWhereInput
+  answers_every?: AnswerWhereInput
+  answers_some?: AnswerWhereInput
+  answers_none?: AnswerWhereInput
 }
 
 export interface AnswerCreateManyWithoutQuestionInput {
@@ -4039,13 +4042,15 @@ export interface AnswerCreateManyWithoutQuestionInput {
   connect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
 }
 
-export interface QuestionUpdateOneWithoutAnswersInput {
-  create?: QuestionCreateWithoutAnswersInput
-  connect?: QuestionWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: QuestionUpdateWithoutAnswersDataInput
-  upsert?: QuestionUpsertWithoutAnswersInput
+export interface QuestionSubscriptionWhereInput {
+  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: QuestionWhereInput
 }
 
 export interface QuestionCreateInput {
@@ -4054,18 +4059,19 @@ export interface QuestionCreateInput {
   answers?: AnswerCreateManyWithoutQuestionInput
 }
 
-export interface HotelWhereUniqueInput {
+export interface BusinessWhereUniqueInput {
   id?: ID_Input
 }
 
 export interface PostCreateInput {
   title: String
   category: PostCategory
+  isTop?: Boolean
   author: String
   content: String
 }
 
-export interface QuestionWhereUniqueInput {
+export interface PostWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -4148,9 +4154,15 @@ export interface UserCreateroleInput {
   set?: Role[] | Role
 }
 
-export interface QuestionUpsertWithoutAnswersInput {
-  update: QuestionUpdateWithoutAnswersDataInput
-  create: QuestionCreateWithoutAnswersInput
+export interface FoodSubscriptionWhereInput {
+  AND?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  OR?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  NOT?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FoodWhereInput
 }
 
 export interface FileCreateInput {
@@ -4160,8 +4172,9 @@ export interface FileCreateInput {
   encoding: String
 }
 
-export interface FileWhereUniqueInput {
+export interface UserWhereUniqueInput {
   id?: ID_Input
+  name?: String
 }
 
 export interface HouseCreateManyInput {
@@ -4190,13 +4203,19 @@ export interface BusinessCreateInput {
   img: FileCreateOneInput
 }
 
-export interface FoodWhereUniqueInput {
+export interface HouseWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface QuestionUpdateWithoutAnswersDataInput {
-  title?: String
-  content?: String
+export interface PostSubscriptionWhereInput {
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: PostWhereInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -4260,11 +4279,8 @@ export interface HouseWhereInput {
   createdAt_gte?: DateTime
 }
 
-export interface AnswerUpdateInput {
-  title?: String
-  content?: String
-  author?: String
-  question?: QuestionUpdateOneWithoutAnswersInput
+export interface AnswerWhereUniqueInput {
+  id?: ID_Input
 }
 
 /*
@@ -4284,16 +4300,6 @@ export interface AnswerEdge {
   cursor: String
 }
 
-export interface Post extends Node {
-  id: ID_Output
-  title: String
-  category: PostCategory
-  author: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
 export interface AnswerPreviousValues {
   id: ID_Output
   title: String
@@ -4303,12 +4309,12 @@ export interface AnswerPreviousValues {
   author: String
 }
 
-export interface BatchPayload {
-  count: Long
-}
-
 export interface AggregateAnswer {
   count: Int
+}
+
+export interface BatchPayload {
+  count: Long
 }
 
 /*
@@ -4321,6 +4327,35 @@ export interface AnswerConnection {
   aggregate: AggregateAnswer
 }
 
+export interface Post extends Node {
+  id: ID_Output
+  title: String
+  category: PostCategory
+  isTop: Boolean
+  author: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+export interface PostPreviousValues {
+  id: ID_Output
+  title: String
+  category: PostCategory
+  isTop: Boolean
+  author: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+export interface AnswerSubscriptionPayload {
+  mutation: MutationType
+  node?: Answer
+  updatedFields?: String[]
+  previousValues?: AnswerPreviousValues
+}
+
 /*
  * An edge in a connection.
 
@@ -4330,6 +4365,33 @@ export interface QuestionEdge {
   cursor: String
 }
 
+export interface AggregateQuestion {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface PostEdge {
+  node: Post
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface QuestionConnection {
+  pageInfo: PageInfo
+  edges: QuestionEdge[]
+  aggregate: AggregateQuestion
+}
+
+export interface AggregateFood {
+  count: Int
+}
+
 export interface Food extends Node {
   id: ID_Output
   name: String
@@ -4337,8 +4399,14 @@ export interface Food extends Node {
   createdAt: DateTime
 }
 
-export interface AggregatePost {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface FoodConnection {
+  pageInfo: PageInfo
+  edges: FoodEdge[]
+  aggregate: AggregateFood
 }
 
 export interface House extends Node {
@@ -4349,13 +4417,12 @@ export interface House extends Node {
 }
 
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface PostConnection {
-  pageInfo: PageInfo
-  edges: PostEdge[]
-  aggregate: AggregatePost
+export interface HouseEdge {
+  node: House
+  cursor: String
 }
 
 export interface UserSubscriptionPayload {
@@ -4365,13 +4432,8 @@ export interface UserSubscriptionPayload {
   previousValues?: UserPreviousValues
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface FoodEdge {
-  node: Food
-  cursor: String
+export interface AggregateHotel {
+  count: Int
 }
 
 export interface UserPreviousValues {
@@ -4383,8 +4445,14 @@ export interface UserPreviousValues {
   lastLoginAt?: DateTime
 }
 
-export interface AggregateHouse {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface HotelConnection {
+  pageInfo: PageInfo
+  edges: HotelEdge[]
+  aggregate: AggregateHotel
 }
 
 export interface Hotel extends Node {
@@ -4400,13 +4468,12 @@ export interface Hotel extends Node {
 }
 
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface HouseConnection {
-  pageInfo: PageInfo
-  edges: HouseEdge[]
-  aggregate: AggregateHouse
+export interface BusinessEdge {
+  node: Business
+  cursor: String
 }
 
 export interface FileSubscriptionPayload {
@@ -4416,13 +4483,8 @@ export interface FileSubscriptionPayload {
   previousValues?: FilePreviousValues
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface HotelEdge {
-  node: Hotel
-  cursor: String
+export interface AggregateFile {
+  count: Int
 }
 
 export interface FilePreviousValues {
@@ -4432,53 +4494,6 @@ export interface FilePreviousValues {
   mimetype: String
   encoding: String
   createdAt: DateTime
-}
-
-export interface AggregateBusiness {
-  count: Int
-}
-
-export interface AggregateHotel {
-  count: Int
-}
-
-export interface PostPreviousValues {
-  id: ID_Output
-  title: String
-  category: PostCategory
-  author: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface HotelConnection {
-  pageInfo: PageInfo
-  edges: HotelEdge[]
-  aggregate: AggregateHotel
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface BusinessConnection {
-  pageInfo: PageInfo
-  edges: BusinessEdge[]
-  aggregate: AggregateBusiness
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface BusinessEdge {
-  node: Business
-  cursor: String
 }
 
 /*
@@ -4491,8 +4506,12 @@ export interface FileConnection {
   aggregate: AggregateFile
 }
 
-export interface AggregateFile {
-  count: Int
+export interface QuestionPreviousValues {
+  id: ID_Output
+  title: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 /*
@@ -4512,14 +4531,13 @@ export interface BusinessSubscriptionPayload {
 }
 
 /*
- * Information about pagination in a connection.
+ * A connection to a list of items.
 
  */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
 }
 
 export interface BusinessPreviousValues {
@@ -4529,14 +4547,13 @@ export interface BusinessPreviousValues {
   createdAt: DateTime
 }
 
-export interface Answer extends Node {
+export interface Question extends Node {
   id: ID_Output
-  question?: Question
   title: String
   content: String
   updatedAt: DateTime
   createdAt: DateTime
-  author: String
+  answers?: Answer[]
 }
 
 export interface Business extends Node {
@@ -4547,12 +4564,14 @@ export interface Business extends Node {
   createdAt: DateTime
 }
 
-export interface QuestionPreviousValues {
-  id: ID_Output
-  title: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
+/*
+ * A connection to a list of items.
+
+ */
+export interface PostConnection {
+  pageInfo: PageInfo
+  edges: PostEdge[]
+  aggregate: AggregatePost
 }
 
 export interface HotelSubscriptionPayload {
@@ -4562,14 +4581,8 @@ export interface HotelSubscriptionPayload {
   previousValues?: HotelPreviousValues
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface QuestionConnection {
-  pageInfo: PageInfo
-  edges: QuestionEdge[]
-  aggregate: AggregateQuestion
+export interface AggregateHouse {
+  count: Int
 }
 
 export interface HotelPreviousValues {
@@ -4582,8 +4595,13 @@ export interface HotelPreviousValues {
   createdAt: DateTime
 }
 
-export interface AggregateFood {
-  count: Int
+/*
+ * An edge in a connection.
+
+ */
+export interface HotelEdge {
+  node: Hotel
+  cursor: String
 }
 
 export interface File extends Node {
@@ -4596,12 +4614,13 @@ export interface File extends Node {
 }
 
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface HouseEdge {
-  node: House
-  cursor: String
+export interface BusinessConnection {
+  pageInfo: PageInfo
+  edges: BusinessEdge[]
+  aggregate: AggregateBusiness
 }
 
 export interface HouseSubscriptionPayload {
@@ -4622,14 +4641,14 @@ export interface HousePreviousValues {
   createdAt: DateTime
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface UserConnection {
-  pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+export interface Answer extends Node {
+  id: ID_Output
+  question?: Question
+  title: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  author: String
 }
 
 export interface User extends Node {
@@ -4641,18 +4660,17 @@ export interface User extends Node {
   lastLoginAt?: DateTime
 }
 
-export interface AggregateQuestion {
-  count: Int
-}
-
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface FoodConnection {
-  pageInfo: PageInfo
-  edges: FoodEdge[]
-  aggregate: AggregateFood
+export interface FoodEdge {
+  node: Food
+  cursor: String
+}
+
+export interface AggregateBusiness {
+  count: Int
 }
 
 export interface PostSubscriptionPayload {
@@ -4692,34 +4710,29 @@ export interface FileEdge {
 }
 
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface PostEdge {
-  node: Post
-  cursor: String
+export interface HouseConnection {
+  pageInfo: PageInfo
+  edges: HouseEdge[]
+  aggregate: AggregateHouse
 }
 
-export interface Question extends Node {
-  id: ID_Output
-  title: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  answers?: Answer[]
-}
-
-export interface AnswerSubscriptionPayload {
-  mutation: MutationType
-  node?: Answer
-  updatedFields?: String[]
-  previousValues?: AnswerPreviousValues
+export interface AggregatePost {
+  count: Int
 }
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
 
 /*
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -4733,15 +4746,20 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean
 
 /*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number
+export type ID_Output = string
+
+/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
 */
-export type ID_Input = string | number
-export type ID_Output = string
+export type Float = number
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 

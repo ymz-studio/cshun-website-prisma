@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Thu Jul 26 2018 18:54:02 GMT+0800 (GMT+08:00)
+# timestamp: Thu Jul 26 2018 19:19:06 GMT+0800 (GMT+08:00)
 
 type AggregateAnswer {
   count: Int!
@@ -1982,6 +1982,7 @@ type Post implements Node {
   id: ID!
   title: String!
   category: PostCategory!
+  isTop: Boolean!
   author: String!
   content: String!
   updatedAt: DateTime!
@@ -2010,6 +2011,7 @@ type PostConnection {
 input PostCreateInput {
   title: String!
   category: PostCategory!
+  isTop: Boolean
   author: String!
   content: String!
 }
@@ -2030,6 +2032,8 @@ enum PostOrderByInput {
   title_DESC
   category_ASC
   category_DESC
+  isTop_ASC
+  isTop_DESC
   author_ASC
   author_DESC
   content_ASC
@@ -2044,6 +2048,7 @@ type PostPreviousValues {
   id: ID!
   title: String!
   category: PostCategory!
+  isTop: Boolean!
   author: String!
   content: String!
   updatedAt: DateTime!
@@ -2092,6 +2097,7 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   title: String
   category: PostCategory
+  isTop: Boolean
   author: String
   content: String
 }
@@ -2195,6 +2201,10 @@ input PostWhereInput {
 
   """All values that are not contained in given list."""
   category_not_in: [PostCategory!]
+  isTop: Boolean
+
+  """All values that are not equal to given value."""
+  isTop_not: Boolean
   author: String
 
   """All values that are not equal to given value."""

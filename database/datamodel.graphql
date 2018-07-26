@@ -54,6 +54,7 @@ type Post {
 	id: ID! @unique
 	title: String!
 	category: PostCategory!
+	isTop: Boolean! @default(value: false) # 文章是否置顶
 	author: String!
 	content: String!
 	updatedAt: DateTime!
