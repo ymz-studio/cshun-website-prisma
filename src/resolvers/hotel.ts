@@ -14,12 +14,10 @@ export const Query = {
 export const Mutation = {
 	async createHotel(parent, args: { data: HotelCreateInput }, ctx: Context, info) {
 		validateInput(args.data);
-		if(typeof args.data.houses === 'string') args.data.houses = JSON.parse(args.data.houses);
 		return await ctx.db.mutation.createHotel(args, info);
 	},
 	async updateHotel(parent, args, ctx: Context, info) {
 		validateInput(args.data);
-		if(typeof args.data.houses === 'string') args.data.houses = JSON.parse(args.data.houses);
 		return await ctx.db.mutation.updateHotel(args, info);
 	},
 	async deleteHotel(parent, args, ctx: Context, info) {

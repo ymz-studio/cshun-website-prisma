@@ -29,16 +29,25 @@ type Hotel {
 	name: String!
 	address: String!
 	introduction: String!
-	houses: Json
+	houses: [House!]!
 	score: Int
 	img: File
 	url: String!
+	createdAt: DateTime!
+}
+
+type House {
+	id: ID! @unique
+	name: String!
+	price: Float!
+	createdAt: DateTime!
 }
 
 type Food {
 	id: ID! @unique
 	name: String!
 	img: File
+	createdAt: DateTime!
 }
 
 type Post {
