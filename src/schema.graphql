@@ -59,7 +59,7 @@ type Query {
 		before: String
 		first: Int
 		last: Int
-	): [Post]!
+	): PostConnection!
 	questions(
 		where: QuestionWhereInput
 		orderBy: QuestionOrderByInput

@@ -3,7 +3,7 @@ import { PostCreateInput } from '../generated/prisma';
 
 export const Query = {
 	async posts(parent, args, ctx: Context, info) {
-		return await ctx.db.query.posts(args, info);
+		return await ctx.db.query.postsConnection(args, info);
 	}
 };
 
