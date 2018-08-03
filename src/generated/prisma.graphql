@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Fri Aug 03 2018 15:44:40 GMT+0800 (GMT+08:00)
+# timestamp: Fri Aug 03 2018 21:37:57 GMT+0800 (GMT+08:00)
 
 type AggregateAnswer {
   count: Int!
@@ -2005,7 +2005,8 @@ enum PostCategory {
   FRUIT_CULTIVATION
   POLICY
   NEWS
-  TREND
+  OTHERS
+  AGRICULTURAL_TECH
 }
 
 """A connection to a list of items."""
@@ -2383,6 +2384,7 @@ type Query {
 
 type Question implements Node {
   id: ID!
+  category: PostCategory
   title: String!
   content: String!
   updatedAt: DateTime!
@@ -2401,6 +2403,7 @@ type QuestionConnection {
 }
 
 input QuestionCreateInput {
+  category: PostCategory
   title: String!
   content: String!
   answers: AnswerCreateManyWithoutQuestionInput
@@ -2412,6 +2415,7 @@ input QuestionCreateOneWithoutAnswersInput {
 }
 
 input QuestionCreateWithoutAnswersInput {
+  category: PostCategory
   title: String!
   content: String!
 }
@@ -2428,6 +2432,8 @@ type QuestionEdge {
 enum QuestionOrderByInput {
   id_ASC
   id_DESC
+  category_ASC
+  category_DESC
   title_ASC
   title_DESC
   content_ASC
@@ -2440,6 +2446,7 @@ enum QuestionOrderByInput {
 
 type QuestionPreviousValues {
   id: ID!
+  category: PostCategory
   title: String!
   content: String!
   updatedAt: DateTime!
@@ -2486,6 +2493,7 @@ input QuestionSubscriptionWhereInput {
 }
 
 input QuestionUpdateInput {
+  category: PostCategory
   title: String
   content: String
   answers: AnswerUpdateManyWithoutQuestionInput
@@ -2501,6 +2509,7 @@ input QuestionUpdateOneWithoutAnswersInput {
 }
 
 input QuestionUpdateWithoutAnswersDataInput {
+  category: PostCategory
   title: String
   content: String
 }
@@ -2559,6 +2568,16 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  category: PostCategory
+
+  """All values that are not equal to given value."""
+  category_not: PostCategory
+
+  """All values that are contained in given list."""
+  category_in: [PostCategory!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [PostCategory!]
   title: String
 
   """All values that are not equal to given value."""

@@ -63,6 +63,7 @@ type Post {
 
 type Question {
 	id: ID! @unique
+	category: PostCategory
 	title: String!
 	content: String!
 	updatedAt: DateTime!
@@ -86,7 +87,8 @@ enum PostCategory {
 	FRUIT_CULTIVATION #水果培育
 	POLICY #扶贫政策
 	NEWS #新闻中心
-	TREND #工作动态
+	OTHERS #其他
+	AGRICULTURAL_TECH #农业技术
 }
 
 enum Role {

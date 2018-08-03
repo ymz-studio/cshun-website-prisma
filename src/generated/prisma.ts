@@ -2141,7 +2141,8 @@ enum PostCategory {
   FRUIT_CULTIVATION
   POLICY
   NEWS
-  TREND
+  OTHERS
+  AGRICULTURAL_TECH
 }
 
 """A connection to a list of items."""
@@ -2519,6 +2520,7 @@ type Query {
 
 type Question implements Node {
   id: ID!
+  category: PostCategory
   title: String!
   content: String!
   updatedAt: DateTime!
@@ -2537,6 +2539,7 @@ type QuestionConnection {
 }
 
 input QuestionCreateInput {
+  category: PostCategory
   title: String!
   content: String!
   answers: AnswerCreateManyWithoutQuestionInput
@@ -2548,6 +2551,7 @@ input QuestionCreateOneWithoutAnswersInput {
 }
 
 input QuestionCreateWithoutAnswersInput {
+  category: PostCategory
   title: String!
   content: String!
 }
@@ -2564,6 +2568,8 @@ type QuestionEdge {
 enum QuestionOrderByInput {
   id_ASC
   id_DESC
+  category_ASC
+  category_DESC
   title_ASC
   title_DESC
   content_ASC
@@ -2576,6 +2582,7 @@ enum QuestionOrderByInput {
 
 type QuestionPreviousValues {
   id: ID!
+  category: PostCategory
   title: String!
   content: String!
   updatedAt: DateTime!
@@ -2622,6 +2629,7 @@ input QuestionSubscriptionWhereInput {
 }
 
 input QuestionUpdateInput {
+  category: PostCategory
   title: String
   content: String
   answers: AnswerUpdateManyWithoutQuestionInput
@@ -2637,6 +2645,7 @@ input QuestionUpdateOneWithoutAnswersInput {
 }
 
 input QuestionUpdateWithoutAnswersDataInput {
+  category: PostCategory
   title: String
   content: String
 }
@@ -2695,6 +2704,16 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  category: PostCategory
+
+  """All values that are not equal to given value."""
+  category_not: PostCategory
+
+  """All values that are contained in given list."""
+  category_in: [PostCategory!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [PostCategory!]
   title: String
 
   """All values that are not equal to given value."""
@@ -3238,6 +3257,8 @@ export type FileOrderByInput =   'id_ASC' |
 
 export type QuestionOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'category_ASC' |
+  'category_DESC' |
   'title_ASC' |
   'title_DESC' |
   'content_ASC' |
@@ -3265,7 +3286,8 @@ export type PostCategory =   'ANIMAL_FARMING' |
   'FRUIT_CULTIVATION' |
   'POLICY' |
   'NEWS' |
-  'TREND'
+  'OTHERS' |
+  'AGRICULTURAL_TECH'
 
 export type PostOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3515,6 +3537,7 @@ export interface FileSubscriptionWhereInput {
 }
 
 export interface QuestionUpdateInput {
+  category?: PostCategory
   title?: String
   content?: String
   answers?: AnswerUpdateManyWithoutQuestionInput
@@ -3733,6 +3756,7 @@ export interface HotelUpdateInput {
 }
 
 export interface QuestionUpdateWithoutAnswersDataInput {
+  category?: PostCategory
   title?: String
   content?: String
 }
@@ -3893,6 +3917,7 @@ export interface QuestionWhereUniqueInput {
 }
 
 export interface QuestionCreateWithoutAnswersInput {
+  category?: PostCategory
   title: String
   content: String
 }
@@ -4022,6 +4047,7 @@ export interface PostSubscriptionWhereInput {
 }
 
 export interface QuestionCreateInput {
+  category?: PostCategory
   title: String
   content: String
   answers?: AnswerCreateManyWithoutQuestionInput
@@ -4129,6 +4155,10 @@ export interface QuestionWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
+  category?: PostCategory
+  category_not?: PostCategory
+  category_in?: PostCategory[] | PostCategory
+  category_not_in?: PostCategory[] | PostCategory
   title?: String
   title_not?: String
   title_in?: String[] | String
@@ -4450,6 +4480,7 @@ export interface HotelConnection {
 
 export interface QuestionPreviousValues {
   id: ID_Output
+  category?: PostCategory
   title: String
   content: String
   updatedAt: DateTime
@@ -4542,6 +4573,7 @@ export interface BusinessPreviousValues {
 
 export interface Question extends Node {
   id: ID_Output
+  category?: PostCategory
   title: String
   content: String
   updatedAt: DateTime
