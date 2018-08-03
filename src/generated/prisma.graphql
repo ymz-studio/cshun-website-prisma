@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Thu Jul 26 2018 19:19:06 GMT+0800 (GMT+08:00)
+# timestamp: Fri Aug 03 2018 15:44:40 GMT+0800 (GMT+08:00)
 
 type AggregateAnswer {
   count: Int!
@@ -1247,7 +1247,7 @@ type Hotel implements Node {
   name: String!
   address: String!
   introduction: String!
-  houses(where: HouseWhereInput, orderBy: HouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [House!]
+  houses: String!
   score: Int
   img(where: FileWhereInput): File
   url: String!
@@ -1268,9 +1268,9 @@ input HotelCreateInput {
   name: String!
   address: String!
   introduction: String!
+  houses: String!
   score: Int
   url: String!
-  houses: HouseCreateManyInput
   img: FileCreateOneInput
 }
 
@@ -1292,6 +1292,8 @@ enum HotelOrderByInput {
   address_DESC
   introduction_ASC
   introduction_DESC
+  houses_ASC
+  houses_DESC
   score_ASC
   score_DESC
   url_ASC
@@ -1307,6 +1309,7 @@ type HotelPreviousValues {
   name: String!
   address: String!
   introduction: String!
+  houses: String!
   score: Int
   url: String!
   createdAt: DateTime!
@@ -1355,9 +1358,9 @@ input HotelUpdateInput {
   name: String
   address: String
   introduction: String
+  houses: String
   score: Int
   url: String
-  houses: HouseUpdateManyInput
   img: FileUpdateOneInput
 }
 
@@ -1530,6 +1533,46 @@ input HotelWhereInput {
 
   """All values not ending with the given string."""
   introduction_not_ends_with: String
+  houses: String
+
+  """All values that are not equal to given value."""
+  houses_not: String
+
+  """All values that are contained in given list."""
+  houses_in: [String!]
+
+  """All values that are not contained in given list."""
+  houses_not_in: [String!]
+
+  """All values less than the given value."""
+  houses_lt: String
+
+  """All values less than or equal the given value."""
+  houses_lte: String
+
+  """All values greater than the given value."""
+  houses_gt: String
+
+  """All values greater than or equal the given value."""
+  houses_gte: String
+
+  """All values containing the given string."""
+  houses_contains: String
+
+  """All values not containing the given string."""
+  houses_not_contains: String
+
+  """All values starting with the given string."""
+  houses_starts_with: String
+
+  """All values not starting with the given string."""
+  houses_not_starts_with: String
+
+  """All values ending with the given string."""
+  houses_ends_with: String
+
+  """All values not ending with the given string."""
+  houses_not_ends_with: String
   score: Int
 
   """All values that are not equal to given value."""
@@ -1614,9 +1657,6 @@ input HotelWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  houses_every: HouseWhereInput
-  houses_some: HouseWhereInput
-  houses_none: HouseWhereInput
   img: FileWhereInput
 }
 
@@ -1644,11 +1684,6 @@ type HouseConnection {
 input HouseCreateInput {
   name: String!
   price: Float!
-}
-
-input HouseCreateManyInput {
-  create: [HouseCreateInput!]
-  connect: [HouseWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -1719,34 +1754,9 @@ input HouseSubscriptionWhereInput {
   node: HouseWhereInput
 }
 
-input HouseUpdateDataInput {
-  name: String
-  price: Float
-}
-
 input HouseUpdateInput {
   name: String
   price: Float
-}
-
-input HouseUpdateManyInput {
-  create: [HouseCreateInput!]
-  connect: [HouseWhereUniqueInput!]
-  disconnect: [HouseWhereUniqueInput!]
-  delete: [HouseWhereUniqueInput!]
-  update: [HouseUpdateWithWhereUniqueNestedInput!]
-  upsert: [HouseUpsertWithWhereUniqueNestedInput!]
-}
-
-input HouseUpdateWithWhereUniqueNestedInput {
-  where: HouseWhereUniqueInput!
-  data: HouseUpdateDataInput!
-}
-
-input HouseUpsertWithWhereUniqueNestedInput {
-  where: HouseWhereUniqueInput!
-  update: HouseUpdateDataInput!
-  create: HouseCreateInput!
 }
 
 input HouseWhereInput {

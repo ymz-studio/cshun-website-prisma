@@ -29,7 +29,7 @@ type Hotel {
 	name: String!
 	address: String!
 	introduction: String!
-	houses: [House!]!
+	houses: String!
 	score: Int
 	img: File
 	url: String!
