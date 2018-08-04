@@ -80,7 +80,12 @@ type Answer {
 	createdAt: DateTime!
 	author: String!
 }
-
+type Expert {
+	id: ID! @unique
+	name: String!
+	introduction: String!
+	img: File!
+}
 enum PostCategory {
 	ANIMAL_FARMING #牲口养殖
 	PLANTING #农务栽种

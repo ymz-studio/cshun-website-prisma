@@ -13,6 +13,7 @@ export interface Query {
     posts: <T = Post[]>(args: { where?: PostWhereInput, orderBy?: PostOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     questions: <T = Question[]>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     answers: <T = Answer[]>(args: { where?: AnswerWhereInput, orderBy?: AnswerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    experts: <T = Expert[]>(args: { where?: ExpertWhereInput, orderBy?: ExpertOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     file: <T = File | null>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     business: <T = Business | null>(args: { where: BusinessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -22,6 +23,7 @@ export interface Query {
     post: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     question: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     answer: <T = Answer | null>(args: { where: AnswerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    expert: <T = Expert | null>(args: { where: ExpertWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     filesConnection: <T = FileConnection>(args: { where?: FileWhereInput, orderBy?: FileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     businessesConnection: <T = BusinessConnection>(args: { where?: BusinessWhereInput, orderBy?: BusinessOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -31,6 +33,7 @@ export interface Query {
     postsConnection: <T = PostConnection>(args: { where?: PostWhereInput, orderBy?: PostOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     questionsConnection: <T = QuestionConnection>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     answersConnection: <T = AnswerConnection>(args: { where?: AnswerWhereInput, orderBy?: AnswerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    expertsConnection: <T = ExpertConnection>(args: { where?: ExpertWhereInput, orderBy?: ExpertOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
@@ -44,6 +47,7 @@ export interface Mutation {
     createPost: <T = Post>(args: { data: PostCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createQuestion: <T = Question>(args: { data: QuestionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createAnswer: <T = Answer>(args: { data: AnswerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createExpert: <T = Expert>(args: { data: ExpertCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateFile: <T = File | null>(args: { data: FileUpdateInput, where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateBusiness: <T = Business | null>(args: { data: BusinessUpdateInput, where: BusinessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -53,6 +57,7 @@ export interface Mutation {
     updatePost: <T = Post | null>(args: { data: PostUpdateInput, where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateQuestion: <T = Question | null>(args: { data: QuestionUpdateInput, where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateAnswer: <T = Answer | null>(args: { data: AnswerUpdateInput, where: AnswerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateExpert: <T = Expert | null>(args: { data: ExpertUpdateInput, where: ExpertWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteFile: <T = File | null>(args: { where: FileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteBusiness: <T = Business | null>(args: { where: BusinessWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -62,6 +67,7 @@ export interface Mutation {
     deletePost: <T = Post | null>(args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteQuestion: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteAnswer: <T = Answer | null>(args: { where: AnswerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteExpert: <T = Expert | null>(args: { where: ExpertWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFile: <T = File>(args: { where: FileWhereUniqueInput, create: FileCreateInput, update: FileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertBusiness: <T = Business>(args: { where: BusinessWhereUniqueInput, create: BusinessCreateInput, update: BusinessUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -71,6 +77,7 @@ export interface Mutation {
     upsertPost: <T = Post>(args: { where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertQuestion: <T = Question>(args: { where: QuestionWhereUniqueInput, create: QuestionCreateInput, update: QuestionUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertAnswer: <T = Answer>(args: { where: AnswerWhereUniqueInput, create: AnswerCreateInput, update: AnswerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertExpert: <T = Expert>(args: { where: ExpertWhereUniqueInput, create: ExpertCreateInput, update: ExpertUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFiles: <T = BatchPayload>(args: { data: FileUpdateInput, where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyBusinesses: <T = BatchPayload>(args: { data: BusinessUpdateInput, where?: BusinessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -80,6 +87,7 @@ export interface Mutation {
     updateManyPosts: <T = BatchPayload>(args: { data: PostUpdateInput, where?: PostWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyQuestions: <T = BatchPayload>(args: { data: QuestionUpdateInput, where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyAnswers: <T = BatchPayload>(args: { data: AnswerUpdateInput, where?: AnswerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyExperts: <T = BatchPayload>(args: { data: ExpertUpdateInput, where?: ExpertWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFiles: <T = BatchPayload>(args: { where?: FileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyBusinesses: <T = BatchPayload>(args: { where?: BusinessWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -88,7 +96,8 @@ export interface Mutation {
     deleteManyFoods: <T = BatchPayload>(args: { where?: FoodWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyPosts: <T = BatchPayload>(args: { where?: PostWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyQuestions: <T = BatchPayload>(args: { where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyAnswers: <T = BatchPayload>(args: { where?: AnswerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    deleteManyAnswers: <T = BatchPayload>(args: { where?: AnswerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyExperts: <T = BatchPayload>(args: { where?: ExpertWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
@@ -100,7 +109,8 @@ export interface Subscription {
     food: <T = FoodSubscriptionPayload | null>(args: { where?: FoodSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     post: <T = PostSubscriptionPayload | null>(args: { where?: PostSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     question: <T = QuestionSubscriptionPayload | null>(args: { where?: QuestionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    answer: <T = AnswerSubscriptionPayload | null>(args: { where?: AnswerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
+    answer: <T = AnswerSubscriptionPayload | null>(args: { where?: AnswerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    expert: <T = ExpertSubscriptionPayload | null>(args: { where?: ExpertSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
@@ -113,6 +123,7 @@ export interface Exists {
   Post: (where?: PostWhereInput) => Promise<boolean>
   Question: (where?: QuestionWhereInput) => Promise<boolean>
   Answer: (where?: AnswerWhereInput) => Promise<boolean>
+  Expert: (where?: ExpertWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
@@ -142,6 +153,10 @@ const typeDefs = `type AggregateAnswer {
 }
 
 type AggregateBusiness {
+  count: Int!
+}
+
+type AggregateExpert {
   count: Int!
 }
 
@@ -798,6 +813,238 @@ input BusinessWhereUniqueInput {
 }
 
 scalar DateTime
+
+type Expert implements Node {
+  id: ID!
+  name: String!
+  introduction: String!
+  img(where: FileWhereInput): File!
+}
+
+"""A connection to a list of items."""
+type ExpertConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ExpertEdge]!
+  aggregate: AggregateExpert!
+}
+
+input ExpertCreateInput {
+  name: String!
+  introduction: String!
+  img: FileCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ExpertEdge {
+  """The item at the end of the edge."""
+  node: Expert!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ExpertOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  introduction_ASC
+  introduction_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ExpertPreviousValues {
+  id: ID!
+  name: String!
+  introduction: String!
+}
+
+type ExpertSubscriptionPayload {
+  mutation: MutationType!
+  node: Expert
+  updatedFields: [String!]
+  previousValues: ExpertPreviousValues
+}
+
+input ExpertSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpertSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpertSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpertSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ExpertWhereInput
+}
+
+input ExpertUpdateInput {
+  name: String
+  introduction: String
+  img: FileUpdateOneInput
+}
+
+input ExpertWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpertWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpertWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpertWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  introduction: String
+
+  """All values that are not equal to given value."""
+  introduction_not: String
+
+  """All values that are contained in given list."""
+  introduction_in: [String!]
+
+  """All values that are not contained in given list."""
+  introduction_not_in: [String!]
+
+  """All values less than the given value."""
+  introduction_lt: String
+
+  """All values less than or equal the given value."""
+  introduction_lte: String
+
+  """All values greater than the given value."""
+  introduction_gt: String
+
+  """All values greater than or equal the given value."""
+  introduction_gte: String
+
+  """All values containing the given string."""
+  introduction_contains: String
+
+  """All values not containing the given string."""
+  introduction_not_contains: String
+
+  """All values starting with the given string."""
+  introduction_starts_with: String
+
+  """All values not starting with the given string."""
+  introduction_not_starts_with: String
+
+  """All values ending with the given string."""
+  introduction_ends_with: String
+
+  """All values not ending with the given string."""
+  introduction_not_ends_with: String
+  img: FileWhereInput
+}
+
+input ExpertWhereUniqueInput {
+  id: ID
+}
 
 type File implements Node {
   id: ID!
@@ -2050,6 +2297,7 @@ type Mutation {
   createPost(data: PostCreateInput!): Post!
   createQuestion(data: QuestionCreateInput!): Question!
   createAnswer(data: AnswerCreateInput!): Answer!
+  createExpert(data: ExpertCreateInput!): Expert!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
@@ -2059,6 +2307,7 @@ type Mutation {
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
   updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer
+  updateExpert(data: ExpertUpdateInput!, where: ExpertWhereUniqueInput!): Expert
   deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
   deleteBusiness(where: BusinessWhereUniqueInput!): Business
@@ -2068,6 +2317,7 @@ type Mutation {
   deletePost(where: PostWhereUniqueInput!): Post
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
   deleteAnswer(where: AnswerWhereUniqueInput!): Answer
+  deleteExpert(where: ExpertWhereUniqueInput!): Expert
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
@@ -2077,6 +2327,7 @@ type Mutation {
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
   upsertAnswer(where: AnswerWhereUniqueInput!, create: AnswerCreateInput!, update: AnswerUpdateInput!): Answer!
+  upsertExpert(where: ExpertWhereUniqueInput!, create: ExpertCreateInput!, update: ExpertUpdateInput!): Expert!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
   updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput): BatchPayload!
@@ -2086,6 +2337,7 @@ type Mutation {
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
   updateManyAnswers(data: AnswerUpdateInput!, where: AnswerWhereInput): BatchPayload!
+  updateManyExperts(data: ExpertUpdateInput!, where: ExpertWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyBusinesses(where: BusinessWhereInput): BatchPayload!
@@ -2095,6 +2347,7 @@ type Mutation {
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
   deleteManyAnswers(where: AnswerWhereInput): BatchPayload!
+  deleteManyExperts(where: ExpertWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2492,6 +2745,7 @@ type Query {
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
   answers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer]!
+  experts(where: ExpertWhereInput, orderBy: ExpertOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expert]!
   user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
   business(where: BusinessWhereUniqueInput!): Business
@@ -2501,6 +2755,7 @@ type Query {
   post(where: PostWhereUniqueInput!): Post
   question(where: QuestionWhereUniqueInput!): Question
   answer(where: AnswerWhereUniqueInput!): Answer
+  expert(where: ExpertWhereUniqueInput!): Expert
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
@@ -2510,6 +2765,7 @@ type Query {
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
   answersConnection(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnswerConnection!
+  expertsConnection(where: ExpertWhereInput, orderBy: ExpertOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExpertConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -2865,6 +3121,7 @@ type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
   answer(where: AnswerSubscriptionWhereInput): AnswerSubscriptionPayload
+  expert(where: ExpertSubscriptionWhereInput): ExpertSubscriptionPayload
 }
 
 type User implements Node {
@@ -3167,11 +3424,13 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
-export type Role =   'ADMIN' |
-  'SUB_ADMIN_1' |
-  'SUB_ADMIN_2' |
-  'SUB_ADMIN_3' |
-  'SUB_ADMIN_4'
+export type PostCategory =   'ANIMAL_FARMING' |
+  'PLANTING' |
+  'FRUIT_CULTIVATION' |
+  'POLICY' |
+  'NEWS' |
+  'OTHERS' |
+  'AGRICULTURAL_TECH'
 
 export type HotelOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3192,10 +3451,16 @@ export type HotelOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type FoodOrderByInput =   'id_ASC' |
+export type FileOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
+  'url_ASC' |
+  'url_DESC' |
+  'filename_ASC' |
+  'filename_DESC' |
+  'mimetype_ASC' |
+  'mimetype_DESC' |
+  'encoding_ASC' |
+  'encoding_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
@@ -3214,17 +3479,6 @@ export type UserOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type BusinessOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'url_ASC' |
-  'url_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC'
-
 export type HouseOrderByInput =   'id_ASC' |
   'id_DESC' |
   'name_ASC' |
@@ -3236,37 +3490,29 @@ export type HouseOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type MutationType =   'CREATED' |
-  'UPDATED' |
-  'DELETED'
-
-export type FileOrderByInput =   'id_ASC' |
+export type BusinessOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
   'url_ASC' |
   'url_DESC' |
-  'filename_ASC' |
-  'filename_DESC' |
-  'mimetype_ASC' |
-  'mimetype_DESC' |
-  'encoding_ASC' |
-  'encoding_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type QuestionOrderByInput =   'id_ASC' |
+export type FoodOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'category_ASC' |
-  'category_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'content_ASC' |
-  'content_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
+  'name_ASC' |
+  'name_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
+
+export type MutationType =   'CREATED' |
+  'UPDATED' |
+  'DELETED'
 
 export type AnswerOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3281,13 +3527,22 @@ export type AnswerOrderByInput =   'id_ASC' |
   'author_ASC' |
   'author_DESC'
 
-export type PostCategory =   'ANIMAL_FARMING' |
-  'PLANTING' |
-  'FRUIT_CULTIVATION' |
-  'POLICY' |
-  'NEWS' |
-  'OTHERS' |
-  'AGRICULTURAL_TECH'
+export type ExpertOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'introduction_ASC' |
+  'introduction_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type Role =   'ADMIN' |
+  'SUB_ADMIN_1' |
+  'SUB_ADMIN_2' |
+  'SUB_ADMIN_3' |
+  'SUB_ADMIN_4'
 
 export type PostOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3306,21 +3561,32 @@ export type PostOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type QuestionOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'category_ASC' |
+  'category_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'content_ASC' |
+  'content_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export interface BusinessWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface FileCreateInput {
-  url: String
-  filename: String
-  mimetype: String
-  encoding: String
+export interface UserCreateroleInput {
+  set?: Role[] | Role
 }
 
-export interface AnswerUpsertWithWhereUniqueWithoutQuestionInput {
-  where: AnswerWhereUniqueInput
-  update: AnswerUpdateWithoutQuestionDataInput
-  create: AnswerCreateWithoutQuestionInput
+export interface AnswerUpdateInput {
+  title?: String
+  content?: String
+  author?: String
+  question?: QuestionUpdateOneWithoutAnswersInput
 }
 
 export interface UserWhereInput {
@@ -3387,10 +3653,10 @@ export interface UserWhereInput {
   lastLoginAt_gte?: DateTime
 }
 
-export interface AnswerUpdateWithoutQuestionDataInput {
-  title?: String
-  content?: String
-  author?: String
+export interface AnswerUpsertWithWhereUniqueWithoutQuestionInput {
+  where: AnswerWhereUniqueInput
+  update: AnswerUpdateWithoutQuestionDataInput
+  create: AnswerCreateWithoutQuestionInput
 }
 
 export interface HotelWhereInput {
@@ -3500,47 +3766,65 @@ export interface HotelWhereInput {
   img?: FileWhereInput
 }
 
+export interface AnswerUpdateWithoutQuestionDataInput {
+  title?: String
+  content?: String
+  author?: String
+}
+
+export interface HouseWhereInput {
+  AND?: HouseWhereInput[] | HouseWhereInput
+  OR?: HouseWhereInput[] | HouseWhereInput
+  NOT?: HouseWhereInput[] | HouseWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  price?: Float
+  price_not?: Float
+  price_in?: Float[] | Float
+  price_not_in?: Float[] | Float
+  price_lt?: Float
+  price_lte?: Float
+  price_gt?: Float
+  price_gte?: Float
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+}
+
 export interface AnswerUpdateWithWhereUniqueWithoutQuestionInput {
   where: AnswerWhereUniqueInput
   data: AnswerUpdateWithoutQuestionDataInput
-}
-
-export interface BusinessSubscriptionWhereInput {
-  AND?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  OR?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  NOT?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: BusinessWhereInput
-}
-
-export interface AnswerUpdateManyWithoutQuestionInput {
-  create?: AnswerCreateWithoutQuestionInput[] | AnswerCreateWithoutQuestionInput
-  connect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
-  disconnect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
-  delete?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
-  update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput[] | AnswerUpdateWithWhereUniqueWithoutQuestionInput
-  upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput[] | AnswerUpsertWithWhereUniqueWithoutQuestionInput
-}
-
-export interface FileSubscriptionWhereInput {
-  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FileWhereInput
-}
-
-export interface QuestionUpdateInput {
-  category?: PostCategory
-  title?: String
-  content?: String
-  answers?: AnswerUpdateManyWithoutQuestionInput
 }
 
 export interface HouseSubscriptionWhereInput {
@@ -3552,6 +3836,76 @@ export interface HouseSubscriptionWhereInput {
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
   node?: HouseWhereInput
+}
+
+export interface AnswerUpdateManyWithoutQuestionInput {
+  create?: AnswerCreateWithoutQuestionInput[] | AnswerCreateWithoutQuestionInput
+  connect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
+  disconnect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
+  delete?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
+  update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput[] | AnswerUpdateWithWhereUniqueWithoutQuestionInput
+  upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput[] | AnswerUpsertWithWhereUniqueWithoutQuestionInput
+}
+
+export interface FoodWhereInput {
+  AND?: FoodWhereInput[] | FoodWhereInput
+  OR?: FoodWhereInput[] | FoodWhereInput
+  NOT?: FoodWhereInput[] | FoodWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  img?: FileWhereInput
+}
+
+export interface QuestionUpdateInput {
+  category?: PostCategory
+  title?: String
+  content?: String
+  answers?: AnswerUpdateManyWithoutQuestionInput
+}
+
+export interface FoodSubscriptionWhereInput {
+  AND?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  OR?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  NOT?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FoodWhereInput
 }
 
 export interface PostUpdateInput {
@@ -3651,6 +4005,552 @@ export interface FoodUpdateInput {
   img?: FileUpdateOneInput
 }
 
+export interface QuestionWhereInput {
+  AND?: QuestionWhereInput[] | QuestionWhereInput
+  OR?: QuestionWhereInput[] | QuestionWhereInput
+  NOT?: QuestionWhereInput[] | QuestionWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  category?: PostCategory
+  category_not?: PostCategory
+  category_in?: PostCategory[] | PostCategory
+  category_not_in?: PostCategory[] | PostCategory
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  content?: String
+  content_not?: String
+  content_in?: String[] | String
+  content_not_in?: String[] | String
+  content_lt?: String
+  content_lte?: String
+  content_gt?: String
+  content_gte?: String
+  content_contains?: String
+  content_not_contains?: String
+  content_starts_with?: String
+  content_not_starts_with?: String
+  content_ends_with?: String
+  content_not_ends_with?: String
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  answers_every?: AnswerWhereInput
+  answers_some?: AnswerWhereInput
+  answers_none?: AnswerWhereInput
+}
+
+export interface HouseUpdateInput {
+  name?: String
+  price?: Float
+}
+
+export interface PostSubscriptionWhereInput {
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: PostWhereInput
+}
+
+export interface HotelUpdateInput {
+  name?: String
+  address?: String
+  introduction?: String
+  houses?: String
+  score?: Int
+  url?: String
+  img?: FileUpdateOneInput
+}
+
+export interface QuestionSubscriptionWhereInput {
+  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: QuestionWhereInput
+}
+
+export interface FileUpsertNestedInput {
+  update: FileUpdateDataInput
+  create: FileCreateInput
+}
+
+export interface ExpertWhereInput {
+  AND?: ExpertWhereInput[] | ExpertWhereInput
+  OR?: ExpertWhereInput[] | ExpertWhereInput
+  NOT?: ExpertWhereInput[] | ExpertWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  introduction?: String
+  introduction_not?: String
+  introduction_in?: String[] | String
+  introduction_not_in?: String[] | String
+  introduction_lt?: String
+  introduction_lte?: String
+  introduction_gt?: String
+  introduction_gte?: String
+  introduction_contains?: String
+  introduction_not_contains?: String
+  introduction_starts_with?: String
+  introduction_not_starts_with?: String
+  introduction_ends_with?: String
+  introduction_not_ends_with?: String
+  img?: FileWhereInput
+}
+
+export interface FileUpdateDataInput {
+  url?: String
+  filename?: String
+  mimetype?: String
+  encoding?: String
+}
+
+export interface QuestionUpdateOneWithoutAnswersInput {
+  create?: QuestionCreateWithoutAnswersInput
+  connect?: QuestionWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: QuestionUpdateWithoutAnswersDataInput
+  upsert?: QuestionUpsertWithoutAnswersInput
+}
+
+export interface FileUpdateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+  delete?: Boolean
+  update?: FileUpdateDataInput
+  upsert?: FileUpsertNestedInput
+}
+
+export interface FileWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface BusinessUpdateInput {
+  name?: String
+  url?: String
+  img?: FileUpdateOneInput
+}
+
+export interface HotelWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface FileUpdateInput {
+  url?: String
+  filename?: String
+  mimetype?: String
+  encoding?: String
+}
+
+export interface FoodWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdateroleInput {
+  set?: Role[] | Role
+}
+
+export interface QuestionWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdateInput {
+  password?: String
+  name?: String
+  lastLoginAt?: DateTime
+  role?: UserUpdateroleInput
+}
+
+export interface ExpertWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface ExpertCreateInput {
+  name: String
+  introduction: String
+  img: FileCreateOneInput
+}
+
+export interface BusinessSubscriptionWhereInput {
+  AND?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  OR?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  NOT?: BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BusinessWhereInput
+}
+
+export interface QuestionCreateWithoutAnswersInput {
+  category?: PostCategory
+  title: String
+  content: String
+}
+
+export interface BusinessWhereInput {
+  AND?: BusinessWhereInput[] | BusinessWhereInput
+  OR?: BusinessWhereInput[] | BusinessWhereInput
+  NOT?: BusinessWhereInput[] | BusinessWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  url?: String
+  url_not?: String
+  url_in?: String[] | String
+  url_not_in?: String[] | String
+  url_lt?: String
+  url_lte?: String
+  url_gt?: String
+  url_gte?: String
+  url_contains?: String
+  url_not_contains?: String
+  url_starts_with?: String
+  url_not_starts_with?: String
+  url_ends_with?: String
+  url_not_ends_with?: String
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  img?: FileWhereInput
+}
+
+export interface QuestionCreateOneWithoutAnswersInput {
+  create?: QuestionCreateWithoutAnswersInput
+  connect?: QuestionWhereUniqueInput
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface AnswerCreateInput {
+  title: String
+  content: String
+  author: String
+  question?: QuestionCreateOneWithoutAnswersInput
+}
+
+export interface AnswerWhereInput {
+  AND?: AnswerWhereInput[] | AnswerWhereInput
+  OR?: AnswerWhereInput[] | AnswerWhereInput
+  NOT?: AnswerWhereInput[] | AnswerWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  content?: String
+  content_not?: String
+  content_in?: String[] | String
+  content_not_in?: String[] | String
+  content_lt?: String
+  content_lte?: String
+  content_gt?: String
+  content_gte?: String
+  content_contains?: String
+  content_not_contains?: String
+  content_starts_with?: String
+  content_not_starts_with?: String
+  content_ends_with?: String
+  content_not_ends_with?: String
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  author?: String
+  author_not?: String
+  author_in?: String[] | String
+  author_not_in?: String[] | String
+  author_lt?: String
+  author_lte?: String
+  author_gt?: String
+  author_gte?: String
+  author_contains?: String
+  author_not_contains?: String
+  author_starts_with?: String
+  author_not_starts_with?: String
+  author_ends_with?: String
+  author_not_ends_with?: String
+  question?: QuestionWhereInput
+}
+
+export interface AnswerCreateWithoutQuestionInput {
+  title: String
+  content: String
+  author: String
+}
+
+export interface QuestionUpdateWithoutAnswersDataInput {
+  category?: PostCategory
+  title?: String
+  content?: String
+}
+
+export interface AnswerCreateManyWithoutQuestionInput {
+  create?: AnswerCreateWithoutQuestionInput[] | AnswerCreateWithoutQuestionInput
+  connect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  name?: String
+}
+
+export interface QuestionCreateInput {
+  category?: PostCategory
+  title: String
+  content: String
+  answers?: AnswerCreateManyWithoutQuestionInput
+}
+
+export interface HouseWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface PostCreateInput {
+  title: String
+  category: PostCategory
+  isTop?: Boolean
+  author: String
+  content: String
+}
+
+export interface AnswerWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface FoodCreateInput {
+  name: String
+  img?: FileCreateOneInput
+}
+
+export interface FileSubscriptionWhereInput {
+  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FileWhereInput
+}
+
+export interface HouseCreateInput {
+  name: String
+  price: Float
+}
+
+export interface ExpertUpdateInput {
+  name?: String
+  introduction?: String
+  img?: FileUpdateOneInput
+}
+
+export interface HotelCreateInput {
+  name: String
+  address: String
+  introduction: String
+  houses: String
+  score?: Int
+  url: String
+  img?: FileCreateOneInput
+}
+
+export interface AnswerSubscriptionWhereInput {
+  AND?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
+  OR?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
+  NOT?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: AnswerWhereInput
+}
+
+export interface UserCreateInput {
+  password: String
+  name: String
+  lastLoginAt?: DateTime
+  role?: UserCreateroleInput
+}
+
+export interface FileCreateInput {
+  url: String
+  filename: String
+  mimetype: String
+  encoding: String
+}
+
+export interface BusinessCreateInput {
+  name: String
+  url: String
+  img: FileCreateOneInput
+}
+
+export interface FileCreateOneInput {
+  create?: FileCreateInput
+  connect?: FileWhereUniqueInput
+}
+
+export interface ExpertSubscriptionWhereInput {
+  AND?: ExpertSubscriptionWhereInput[] | ExpertSubscriptionWhereInput
+  OR?: ExpertSubscriptionWhereInput[] | ExpertSubscriptionWhereInput
+  NOT?: ExpertSubscriptionWhereInput[] | ExpertSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: ExpertWhereInput
+}
+
+export interface QuestionUpsertWithoutAnswersInput {
+  update: QuestionUpdateWithoutAnswersDataInput
+  create: QuestionCreateWithoutAnswersInput
+}
+
 export interface PostWhereInput {
   AND?: PostWhereInput[] | PostWhereInput
   OR?: PostWhereInput[] | PostWhereInput
@@ -3735,193 +4635,6 @@ export interface PostWhereInput {
   createdAt_gte?: DateTime
 }
 
-export interface HouseUpdateInput {
-  name?: String
-  price?: Float
-}
-
-export interface QuestionUpsertWithoutAnswersInput {
-  update: QuestionUpdateWithoutAnswersDataInput
-  create: QuestionCreateWithoutAnswersInput
-}
-
-export interface HotelUpdateInput {
-  name?: String
-  address?: String
-  introduction?: String
-  houses?: String
-  score?: Int
-  url?: String
-  img?: FileUpdateOneInput
-}
-
-export interface QuestionUpdateWithoutAnswersDataInput {
-  category?: PostCategory
-  title?: String
-  content?: String
-}
-
-export interface FileUpsertNestedInput {
-  update: FileUpdateDataInput
-  create: FileCreateInput
-}
-
-export interface AnswerWhereInput {
-  AND?: AnswerWhereInput[] | AnswerWhereInput
-  OR?: AnswerWhereInput[] | AnswerWhereInput
-  NOT?: AnswerWhereInput[] | AnswerWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  content?: String
-  content_not?: String
-  content_in?: String[] | String
-  content_not_in?: String[] | String
-  content_lt?: String
-  content_lte?: String
-  content_gt?: String
-  content_gte?: String
-  content_contains?: String
-  content_not_contains?: String
-  content_starts_with?: String
-  content_not_starts_with?: String
-  content_ends_with?: String
-  content_not_ends_with?: String
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  author?: String
-  author_not?: String
-  author_in?: String[] | String
-  author_not_in?: String[] | String
-  author_lt?: String
-  author_lte?: String
-  author_gt?: String
-  author_gte?: String
-  author_contains?: String
-  author_not_contains?: String
-  author_starts_with?: String
-  author_not_starts_with?: String
-  author_ends_with?: String
-  author_not_ends_with?: String
-  question?: QuestionWhereInput
-}
-
-export interface FileUpdateDataInput {
-  url?: String
-  filename?: String
-  mimetype?: String
-  encoding?: String
-}
-
-export interface QuestionUpdateOneWithoutAnswersInput {
-  create?: QuestionCreateWithoutAnswersInput
-  connect?: QuestionWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: QuestionUpdateWithoutAnswersDataInput
-  upsert?: QuestionUpsertWithoutAnswersInput
-}
-
-export interface FileUpdateOneInput {
-  create?: FileCreateInput
-  connect?: FileWhereUniqueInput
-  delete?: Boolean
-  update?: FileUpdateDataInput
-  upsert?: FileUpsertNestedInput
-}
-
-export interface AnswerUpdateInput {
-  title?: String
-  content?: String
-  author?: String
-  question?: QuestionUpdateOneWithoutAnswersInput
-}
-
-export interface BusinessUpdateInput {
-  name?: String
-  url?: String
-  img?: FileUpdateOneInput
-}
-
-export interface FileWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface FileUpdateInput {
-  url?: String
-  filename?: String
-  mimetype?: String
-  encoding?: String
-}
-
-export interface HotelWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpdateroleInput {
-  set?: Role[] | Role
-}
-
-export interface FoodWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpdateInput {
-  password?: String
-  name?: String
-  lastLoginAt?: DateTime
-  role?: UserUpdateroleInput
-}
-
-export interface QuestionWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface QuestionCreateWithoutAnswersInput {
-  category?: PostCategory
-  title: String
-  content: String
-}
-
 export interface HotelSubscriptionWhereInput {
   AND?: HotelSubscriptionWhereInput[] | HotelSubscriptionWhereInput
   OR?: HotelSubscriptionWhereInput[] | HotelSubscriptionWhereInput
@@ -3933,377 +4646,8 @@ export interface HotelSubscriptionWhereInput {
   node?: HotelWhereInput
 }
 
-export interface QuestionCreateOneWithoutAnswersInput {
-  create?: QuestionCreateWithoutAnswersInput
-  connect?: QuestionWhereUniqueInput
-}
-
-export interface BusinessWhereInput {
-  AND?: BusinessWhereInput[] | BusinessWhereInput
-  OR?: BusinessWhereInput[] | BusinessWhereInput
-  NOT?: BusinessWhereInput[] | BusinessWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  url?: String
-  url_not?: String
-  url_in?: String[] | String
-  url_not_in?: String[] | String
-  url_lt?: String
-  url_lte?: String
-  url_gt?: String
-  url_gte?: String
-  url_contains?: String
-  url_not_contains?: String
-  url_starts_with?: String
-  url_not_starts_with?: String
-  url_ends_with?: String
-  url_not_ends_with?: String
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  img?: FileWhereInput
-}
-
-export interface AnswerCreateInput {
-  title: String
-  content: String
-  author: String
-  question?: QuestionCreateOneWithoutAnswersInput
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
-export interface AnswerCreateWithoutQuestionInput {
-  title: String
-  content: String
-  author: String
-}
-
-export interface FoodSubscriptionWhereInput {
-  AND?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  OR?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  NOT?: FoodSubscriptionWhereInput[] | FoodSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FoodWhereInput
-}
-
-export interface AnswerCreateManyWithoutQuestionInput {
-  create?: AnswerCreateWithoutQuestionInput[] | AnswerCreateWithoutQuestionInput
-  connect?: AnswerWhereUniqueInput[] | AnswerWhereUniqueInput
-}
-
-export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: PostWhereInput
-}
-
-export interface QuestionCreateInput {
-  category?: PostCategory
-  title: String
-  content: String
-  answers?: AnswerCreateManyWithoutQuestionInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  name?: String
-}
-
-export interface PostCreateInput {
-  title: String
-  category: PostCategory
-  isTop?: Boolean
-  author: String
-  content: String
-}
-
-export interface HouseWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface FoodCreateInput {
-  name: String
-  img?: FileCreateOneInput
-}
-
-export interface AnswerWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface HouseCreateInput {
-  name: String
-  price: Float
-}
-
-export interface FoodWhereInput {
-  AND?: FoodWhereInput[] | FoodWhereInput
-  OR?: FoodWhereInput[] | FoodWhereInput
-  NOT?: FoodWhereInput[] | FoodWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  img?: FileWhereInput
-}
-
-export interface HotelCreateInput {
-  name: String
-  address: String
-  introduction: String
-  houses: String
-  score?: Int
-  url: String
-  img?: FileCreateOneInput
-}
-
-export interface QuestionWhereInput {
-  AND?: QuestionWhereInput[] | QuestionWhereInput
-  OR?: QuestionWhereInput[] | QuestionWhereInput
-  NOT?: QuestionWhereInput[] | QuestionWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  category?: PostCategory
-  category_not?: PostCategory
-  category_in?: PostCategory[] | PostCategory
-  category_not_in?: PostCategory[] | PostCategory
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  content?: String
-  content_not?: String
-  content_in?: String[] | String
-  content_not_in?: String[] | String
-  content_lt?: String
-  content_lte?: String
-  content_gt?: String
-  content_gte?: String
-  content_contains?: String
-  content_not_contains?: String
-  content_starts_with?: String
-  content_not_starts_with?: String
-  content_ends_with?: String
-  content_not_ends_with?: String
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  answers_every?: AnswerWhereInput
-  answers_some?: AnswerWhereInput
-  answers_none?: AnswerWhereInput
-}
-
-export interface AnswerSubscriptionWhereInput {
-  AND?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
-  OR?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
-  NOT?: AnswerSubscriptionWhereInput[] | AnswerSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: AnswerWhereInput
-}
-
-export interface UserCreateroleInput {
-  set?: Role[] | Role
-}
-
-export interface UserCreateInput {
-  password: String
-  name: String
-  lastLoginAt?: DateTime
-  role?: UserCreateroleInput
-}
-
-export interface BusinessCreateInput {
-  name: String
-  url: String
-  img: FileCreateOneInput
-}
-
-export interface FileCreateOneInput {
-  create?: FileCreateInput
-  connect?: FileWhereUniqueInput
-}
-
 export interface PostWhereUniqueInput {
   id?: ID_Input
-}
-
-export interface QuestionSubscriptionWhereInput {
-  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: QuestionWhereInput
-}
-
-export interface HouseWhereInput {
-  AND?: HouseWhereInput[] | HouseWhereInput
-  OR?: HouseWhereInput[] | HouseWhereInput
-  NOT?: HouseWhereInput[] | HouseWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  price?: Float
-  price_not?: Float
-  price_in?: Float[] | Float
-  price_not_in?: Float[] | Float
-  price_lt?: Float
-  price_lte?: Float
-  price_gt?: Float
-  price_gte?: Float
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
 }
 
 /*
@@ -4314,35 +4658,13 @@ export interface Node {
   id: ID_Output
 }
 
-export interface AggregateQuestion {
-  count: Int
-}
-
-export interface AnswerPreviousValues {
-  id: ID_Output
-  title: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  author: String
-}
-
-export interface AggregateAnswer {
-  count: Int
-}
-
-export interface BatchPayload {
-  count: Long
-}
-
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface AnswerConnection {
-  pageInfo: PageInfo
-  edges: AnswerEdge[]
-  aggregate: AggregateAnswer
+export interface AnswerEdge {
+  node: Answer
+  cursor: String
 }
 
 export interface Post extends Node {
@@ -4356,12 +4678,34 @@ export interface Post extends Node {
   createdAt: DateTime
 }
 
-export interface PostPreviousValues {
+export interface ExpertPreviousValues {
   id: ID_Output
+  name: String
+  introduction: String
+}
+
+export interface BatchPayload {
+  count: Long
+}
+
+export interface AggregateExpert {
+  count: Int
+}
+
+export interface Question extends Node {
+  id: ID_Output
+  category?: PostCategory
   title: String
-  category: PostCategory
-  isTop: Boolean
-  author: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  answers?: Answer[]
+}
+
+export interface QuestionPreviousValues {
+  id: ID_Output
+  category?: PostCategory
+  title: String
   content: String
   updatedAt: DateTime
   createdAt: DateTime
@@ -4371,9 +4715,23 @@ export interface PostPreviousValues {
  * An edge in a connection.
 
  */
-export interface AnswerEdge {
-  node: Answer
+export interface ExpertEdge {
+  node: Expert
   cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ExpertConnection {
+  pageInfo: PageInfo
+  edges: ExpertEdge[]
+  aggregate: AggregateExpert
+}
+
+export interface AggregateAnswer {
+  count: Int
 }
 
 /*
@@ -4385,34 +4743,35 @@ export interface QuestionEdge {
   cursor: String
 }
 
-export interface AnswerSubscriptionPayload {
-  mutation: MutationType
-  node?: Answer
-  updatedFields?: String[]
-  previousValues?: AnswerPreviousValues
-}
-
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface PostEdge {
-  node: Post
-  cursor: String
+export interface AnswerConnection {
+  pageInfo: PageInfo
+  edges: AnswerEdge[]
+  aggregate: AggregateAnswer
+}
+
+export interface AggregatePost {
+  count: Int
+}
+
+export interface ExpertSubscriptionPayload {
+  mutation: MutationType
+  node?: Expert
+  updatedFields?: String[]
+  previousValues?: ExpertPreviousValues
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface QuestionConnection {
+export interface PostConnection {
   pageInfo: PageInfo
-  edges: QuestionEdge[]
-  aggregate: AggregateQuestion
-}
-
-export interface AggregateFood {
-  count: Int
+  edges: PostEdge[]
+  aggregate: AggregatePost
 }
 
 export interface Food extends Node {
@@ -4423,28 +4782,11 @@ export interface Food extends Node {
 }
 
 /*
- * A connection to a list of items.
-
- */
-export interface FoodConnection {
-  pageInfo: PageInfo
-  edges: FoodEdge[]
-  aggregate: AggregateFood
-}
-
-export interface House extends Node {
-  id: ID_Output
-  name: String
-  price: Float
-  createdAt: DateTime
-}
-
-/*
  * An edge in a connection.
 
  */
-export interface HouseEdge {
-  node: House
+export interface FoodEdge {
+  node: Food
   cursor: String
 }
 
@@ -4455,7 +4797,7 @@ export interface UserSubscriptionPayload {
   previousValues?: UserPreviousValues
 }
 
-export interface AggregateHotel {
+export interface AggregateHouse {
   count: Int
 }
 
@@ -4472,152 +4814,16 @@ export interface UserPreviousValues {
  * A connection to a list of items.
 
  */
-export interface HotelConnection {
+export interface HouseConnection {
   pageInfo: PageInfo
-  edges: HotelEdge[]
-  aggregate: AggregateHotel
+  edges: HouseEdge[]
+  aggregate: AggregateHouse
 }
 
-export interface QuestionPreviousValues {
-  id: ID_Output
-  category?: PostCategory
-  title: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface BusinessEdge {
-  node: Business
-  cursor: String
-}
-
-export interface FileSubscriptionPayload {
-  mutation: MutationType
-  node?: File
-  updatedFields?: String[]
-  previousValues?: FilePreviousValues
-}
-
-export interface AggregateFile {
-  count: Int
-}
-
-export interface FilePreviousValues {
-  id: ID_Output
-  url: String
-  filename: String
-  mimetype: String
-  encoding: String
-  createdAt: DateTime
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface FileConnection {
-  pageInfo: PageInfo
-  edges: FileEdge[]
-  aggregate: AggregateFile
-}
-
-export interface Hotel extends Node {
+export interface House extends Node {
   id: ID_Output
   name: String
-  address: String
-  introduction: String
-  houses: String
-  score?: Int
-  img?: File
-  url: String
-  createdAt: DateTime
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
-}
-
-export interface BusinessSubscriptionPayload {
-  mutation: MutationType
-  node?: Business
-  updatedFields?: String[]
-  previousValues?: BusinessPreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface UserConnection {
-  pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
-}
-
-export interface BusinessPreviousValues {
-  id: ID_Output
-  name: String
-  url: String
-  createdAt: DateTime
-}
-
-export interface Question extends Node {
-  id: ID_Output
-  category?: PostCategory
-  title: String
-  content: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  answers?: Answer[]
-}
-
-export interface Business extends Node {
-  id: ID_Output
-  name: String
-  url: String
-  img: File
-  createdAt: DateTime
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface PostConnection {
-  pageInfo: PageInfo
-  edges: PostEdge[]
-  aggregate: AggregatePost
-}
-
-export interface HotelSubscriptionPayload {
-  mutation: MutationType
-  node?: Hotel
-  updatedFields?: String[]
-  previousValues?: HotelPreviousValues
-}
-
-export interface AggregateHouse {
-  count: Int
-}
-
-export interface HotelPreviousValues {
-  id: ID_Output
-  name: String
-  address: String
-  introduction: String
-  houses: String
-  score?: Int
-  url: String
+  price: Float
   createdAt: DateTime
 }
 
@@ -4630,7 +4836,18 @@ export interface HotelEdge {
   cursor: String
 }
 
-export interface File extends Node {
+export interface FileSubscriptionPayload {
+  mutation: MutationType
+  node?: File
+  updatedFields?: String[]
+  previousValues?: FilePreviousValues
+}
+
+export interface AggregateBusiness {
+  count: Int
+}
+
+export interface FilePreviousValues {
   id: ID_Output
   url: String
   filename: String
@@ -4649,6 +4866,121 @@ export interface BusinessConnection {
   aggregate: AggregateBusiness
 }
 
+export interface AnswerPreviousValues {
+  id: ID_Output
+  title: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  author: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface FileEdge {
+  node: File
+  cursor: String
+}
+
+export interface BusinessSubscriptionPayload {
+  mutation: MutationType
+  node?: Business
+  updatedFields?: String[]
+  previousValues?: BusinessPreviousValues
+}
+
+export interface AggregateUser {
+  count: Int
+}
+
+export interface BusinessPreviousValues {
+  id: ID_Output
+  name: String
+  url: String
+  createdAt: DateTime
+}
+
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
+
+export interface Hotel extends Node {
+  id: ID_Output
+  name: String
+  address: String
+  introduction: String
+  houses: String
+  score?: Int
+  img?: File
+  url: String
+  createdAt: DateTime
+}
+
+export interface Expert extends Node {
+  id: ID_Output
+  name: String
+  introduction: String
+  img: File
+}
+
+export interface HotelSubscriptionPayload {
+  mutation: MutationType
+  node?: Hotel
+  updatedFields?: String[]
+  previousValues?: HotelPreviousValues
+}
+
+export interface AggregateQuestion {
+  count: Int
+}
+
+export interface HotelPreviousValues {
+  id: ID_Output
+  name: String
+  address: String
+  introduction: String
+  houses: String
+  score?: Int
+  url: String
+  createdAt: DateTime
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface PostEdge {
+  node: Post
+  cursor: String
+}
+
+export interface Business extends Node {
+  id: ID_Output
+  name: String
+  url: String
+  img: File
+  createdAt: DateTime
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface FoodConnection {
+  pageInfo: PageInfo
+  edges: FoodEdge[]
+  aggregate: AggregateFood
+}
+
 export interface HouseSubscriptionPayload {
   mutation: MutationType
   node?: House
@@ -4656,7 +4988,7 @@ export interface HouseSubscriptionPayload {
   previousValues?: HousePreviousValues
 }
 
-export interface AggregateUser {
+export interface AggregateHotel {
   count: Int
 }
 
@@ -4667,14 +4999,65 @@ export interface HousePreviousValues {
   createdAt: DateTime
 }
 
-export interface Answer extends Node {
+/*
+ * An edge in a connection.
+
+ */
+export interface BusinessEdge {
+  node: Business
+  cursor: String
+}
+
+export interface File extends Node {
   id: ID_Output
-  question?: Question
-  title: String
-  content: String
-  updatedAt: DateTime
+  url: String
+  filename: String
+  mimetype: String
+  encoding: String
   createdAt: DateTime
-  author: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface FileConnection {
+  pageInfo: PageInfo
+  edges: FileEdge[]
+  aggregate: AggregateFile
+}
+
+export interface FoodSubscriptionPayload {
+  mutation: MutationType
+  node?: Food
+  updatedFields?: String[]
+  previousValues?: FoodPreviousValues
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+export interface FoodPreviousValues {
+  id: ID_Output
+  name: String
+  createdAt: DateTime
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface QuestionConnection {
+  pageInfo: PageInfo
+  edges: QuestionEdge[]
+  aggregate: AggregateQuestion
 }
 
 export interface User extends Node {
@@ -4690,20 +5073,13 @@ export interface User extends Node {
  * An edge in a connection.
 
  */
-export interface FoodEdge {
-  node: Food
+export interface HouseEdge {
+  node: House
   cursor: String
 }
 
-export interface AggregateBusiness {
+export interface AggregateFile {
   count: Int
-}
-
-export interface PostSubscriptionPayload {
-  mutation: MutationType
-  node?: Post
-  updatedFields?: String[]
-  previousValues?: PostPreviousValues
 }
 
 export interface QuestionSubscriptionPayload {
@@ -4713,25 +5089,37 @@ export interface QuestionSubscriptionPayload {
   previousValues?: QuestionPreviousValues
 }
 
-export interface FoodPreviousValues {
+export interface AnswerSubscriptionPayload {
+  mutation: MutationType
+  node?: Answer
+  updatedFields?: String[]
+  previousValues?: AnswerPreviousValues
+}
+
+export interface PostPreviousValues {
   id: ID_Output
-  name: String
+  title: String
+  category: PostCategory
+  isTop: Boolean
+  author: String
+  content: String
+  updatedAt: DateTime
   createdAt: DateTime
 }
 
-export interface FoodSubscriptionPayload {
+export interface PostSubscriptionPayload {
   mutation: MutationType
-  node?: Food
+  node?: Post
   updatedFields?: String[]
-  previousValues?: FoodPreviousValues
+  previousValues?: PostPreviousValues
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface FileEdge {
-  node: File
+export interface UserEdge {
+  node: User
   cursor: String
 }
 
@@ -4739,25 +5127,24 @@ export interface FileEdge {
  * A connection to a list of items.
 
  */
-export interface HouseConnection {
+export interface HotelConnection {
   pageInfo: PageInfo
-  edges: HouseEdge[]
-  aggregate: AggregateHouse
+  edges: HotelEdge[]
+  aggregate: AggregateHotel
 }
 
-export interface AggregatePost {
+export interface AggregateFood {
   count: Int
 }
 
-/*
- * Information about pagination in a connection.
-
- */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
+export interface Answer extends Node {
+  id: ID_Output
+  question?: Question
+  title: String
+  content: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  author: String
 }
 
 /*
@@ -4767,15 +5154,15 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean
-
-/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number
 export type ID_Output = string
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.

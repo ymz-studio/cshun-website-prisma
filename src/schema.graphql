@@ -69,6 +69,15 @@ type Query {
 		first: Int
 		last: Int
 	): [Question]!
+	experts(
+		where: ExpertWhereInput
+		orderBy: ExpertOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Expert]!
 }
 
 type Mutation {
@@ -93,10 +102,12 @@ type Mutation {
 	deleteBusiness(where: BusinessWhereUniqueInput!): Business
 		@hasRole(role: [ADMIN, SUB_ADMIN_1])
 
+
 	createHotel(data: HotelCreateInput!): Hotel! @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	createFood(data: FoodCreateInput!): Food!  @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	createPost(data: PostCreateInput!): Post!  @hasRole(role: [ADMIN, SUB_ADMIN_2])
 	createQuestion(data: QuestionCreateInput!): Question! @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	createExpert(data:ExpertCreateInput!): Expert! @hasRole(role: [ADMIN, SUB_ADMIN_3])
 	createAnswer(data: AnswerCreateInput!): Answer!  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 
 	updateHotel(data: HotelUpdateInput!, where: HotelWhereUniqueInput!): Hotel  @hasRole(role: [ADMIN, SUB_ADMIN_4])
@@ -106,12 +117,17 @@ type Mutation {
 		data: QuestionUpdateInput!
 		where: QuestionWhereUniqueInput!
 	): Question  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	updateExpert(
+		data: ExpertUpdateInput!
+		where: ExpertWhereUniqueInput!
+	): Expert  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 	updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 
 	deleteHotel(where: HotelWhereUniqueInput!): Hotel  @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	deleteFood(where: FoodWhereUniqueInput!): Food  @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	deletePost(where: PostWhereUniqueInput!): Post @hasRole(role: [ADMIN, SUB_ADMIN_2])
 	deleteQuestion(where: QuestionWhereUniqueInput!): Question  @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	deleteExpert(where: ExpertWhereUniqueInput!): Expert  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 	deleteAnswer(where: AnswerWhereUniqueInput!): Answer  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 }
 

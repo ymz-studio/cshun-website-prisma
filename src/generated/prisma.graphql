@@ -1,11 +1,15 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Fri Aug 03 2018 21:37:57 GMT+0800 (GMT+08:00)
+# timestamp: Sat Aug 04 2018 15:39:14 GMT+0800 (GMT+08:00)
 
 type AggregateAnswer {
   count: Int!
 }
 
 type AggregateBusiness {
+  count: Int!
+}
+
+type AggregateExpert {
   count: Int!
 }
 
@@ -662,6 +666,238 @@ input BusinessWhereUniqueInput {
 }
 
 scalar DateTime
+
+type Expert implements Node {
+  id: ID!
+  name: String!
+  introduction: String!
+  img(where: FileWhereInput): File!
+}
+
+"""A connection to a list of items."""
+type ExpertConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ExpertEdge]!
+  aggregate: AggregateExpert!
+}
+
+input ExpertCreateInput {
+  name: String!
+  introduction: String!
+  img: FileCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ExpertEdge {
+  """The item at the end of the edge."""
+  node: Expert!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ExpertOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  introduction_ASC
+  introduction_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ExpertPreviousValues {
+  id: ID!
+  name: String!
+  introduction: String!
+}
+
+type ExpertSubscriptionPayload {
+  mutation: MutationType!
+  node: Expert
+  updatedFields: [String!]
+  previousValues: ExpertPreviousValues
+}
+
+input ExpertSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpertSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpertSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpertSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ExpertWhereInput
+}
+
+input ExpertUpdateInput {
+  name: String
+  introduction: String
+  img: FileUpdateOneInput
+}
+
+input ExpertWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ExpertWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ExpertWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ExpertWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  introduction: String
+
+  """All values that are not equal to given value."""
+  introduction_not: String
+
+  """All values that are contained in given list."""
+  introduction_in: [String!]
+
+  """All values that are not contained in given list."""
+  introduction_not_in: [String!]
+
+  """All values less than the given value."""
+  introduction_lt: String
+
+  """All values less than or equal the given value."""
+  introduction_lte: String
+
+  """All values greater than the given value."""
+  introduction_gt: String
+
+  """All values greater than or equal the given value."""
+  introduction_gte: String
+
+  """All values containing the given string."""
+  introduction_contains: String
+
+  """All values not containing the given string."""
+  introduction_not_contains: String
+
+  """All values starting with the given string."""
+  introduction_starts_with: String
+
+  """All values not starting with the given string."""
+  introduction_not_starts_with: String
+
+  """All values ending with the given string."""
+  introduction_ends_with: String
+
+  """All values not ending with the given string."""
+  introduction_not_ends_with: String
+  img: FileWhereInput
+}
+
+input ExpertWhereUniqueInput {
+  id: ID
+}
 
 type File implements Node {
   id: ID!
@@ -1914,6 +2150,7 @@ type Mutation {
   createPost(data: PostCreateInput!): Post!
   createQuestion(data: QuestionCreateInput!): Question!
   createAnswer(data: AnswerCreateInput!): Answer!
+  createExpert(data: ExpertCreateInput!): Expert!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
@@ -1923,6 +2160,7 @@ type Mutation {
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
   updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer
+  updateExpert(data: ExpertUpdateInput!, where: ExpertWhereUniqueInput!): Expert
   deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
   deleteBusiness(where: BusinessWhereUniqueInput!): Business
@@ -1932,6 +2170,7 @@ type Mutation {
   deletePost(where: PostWhereUniqueInput!): Post
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
   deleteAnswer(where: AnswerWhereUniqueInput!): Answer
+  deleteExpert(where: ExpertWhereUniqueInput!): Expert
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
@@ -1941,6 +2180,7 @@ type Mutation {
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
   upsertAnswer(where: AnswerWhereUniqueInput!, create: AnswerCreateInput!, update: AnswerUpdateInput!): Answer!
+  upsertExpert(where: ExpertWhereUniqueInput!, create: ExpertCreateInput!, update: ExpertUpdateInput!): Expert!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateInput!, where: FileWhereInput): BatchPayload!
   updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput): BatchPayload!
@@ -1950,6 +2190,7 @@ type Mutation {
   updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
   updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
   updateManyAnswers(data: AnswerUpdateInput!, where: AnswerWhereInput): BatchPayload!
+  updateManyExperts(data: ExpertUpdateInput!, where: ExpertWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyBusinesses(where: BusinessWhereInput): BatchPayload!
@@ -1959,6 +2200,7 @@ type Mutation {
   deleteManyPosts(where: PostWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
   deleteManyAnswers(where: AnswerWhereInput): BatchPayload!
+  deleteManyExperts(where: ExpertWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2356,6 +2598,7 @@ type Query {
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
   answers(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Answer]!
+  experts(where: ExpertWhereInput, orderBy: ExpertOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Expert]!
   user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
   business(where: BusinessWhereUniqueInput!): Business
@@ -2365,6 +2608,7 @@ type Query {
   post(where: PostWhereUniqueInput!): Post
   question(where: QuestionWhereUniqueInput!): Question
   answer(where: AnswerWhereUniqueInput!): Answer
+  expert(where: ExpertWhereUniqueInput!): Expert
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
@@ -2374,6 +2618,7 @@ type Query {
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
   answersConnection(where: AnswerWhereInput, orderBy: AnswerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnswerConnection!
+  expertsConnection(where: ExpertWhereInput, orderBy: ExpertOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExpertConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -2729,6 +2974,7 @@ type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
   answer(where: AnswerSubscriptionWhereInput): AnswerSubscriptionPayload
+  expert(where: ExpertSubscriptionWhereInput): ExpertSubscriptionPayload
 }
 
 type User implements Node {
