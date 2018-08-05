@@ -106,7 +106,7 @@ type Mutation {
 	createHotel(data: HotelCreateInput!): Hotel! @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	createFood(data: FoodCreateInput!): Food!  @hasRole(role: [ADMIN, SUB_ADMIN_4])
 	createPost(data: PostCreateInput!): Post!  @hasRole(role: [ADMIN, SUB_ADMIN_2])
-	createQuestion(data: QuestionCreateInput!): Question! @hasRole(role: [ADMIN, SUB_ADMIN_3])
+	createQuestion(data: QuestionCreateInput!): Question!
 	createExpert(data:ExpertCreateInput!): Expert! @hasRole(role: [ADMIN, SUB_ADMIN_3])
 	createAnswer(data: AnswerCreateInput!): Answer!  @hasRole(role: [ADMIN, SUB_ADMIN_3])
 
