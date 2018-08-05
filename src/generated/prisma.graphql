@@ -1,5 +1,5 @@
 # source: https://api.mywsq.cn/cshun
-# timestamp: Sat Aug 04 2018 15:39:14 GMT+0800 (GMT+08:00)
+# timestamp: Sun Aug 05 2018 10:54:09 GMT+0800 (GMT+08:00)
 
 type AggregateAnswer {
   count: Int!
@@ -671,7 +671,7 @@ type Expert implements Node {
   id: ID!
   name: String!
   introduction: String!
-  img(where: FileWhereInput): File!
+  profile: String!
 }
 
 """A connection to a list of items."""
@@ -687,7 +687,7 @@ type ExpertConnection {
 input ExpertCreateInput {
   name: String!
   introduction: String!
-  img: FileCreateOneInput!
+  profile: String!
 }
 
 """An edge in a connection."""
@@ -706,6 +706,8 @@ enum ExpertOrderByInput {
   name_DESC
   introduction_ASC
   introduction_DESC
+  profile_ASC
+  profile_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -716,6 +718,7 @@ type ExpertPreviousValues {
   id: ID!
   name: String!
   introduction: String!
+  profile: String!
 }
 
 type ExpertSubscriptionPayload {
@@ -760,7 +763,7 @@ input ExpertSubscriptionWhereInput {
 input ExpertUpdateInput {
   name: String
   introduction: String
-  img: FileUpdateOneInput
+  profile: String
 }
 
 input ExpertWhereInput {
@@ -892,7 +895,46 @@ input ExpertWhereInput {
 
   """All values not ending with the given string."""
   introduction_not_ends_with: String
-  img: FileWhereInput
+  profile: String
+
+  """All values that are not equal to given value."""
+  profile_not: String
+
+  """All values that are contained in given list."""
+  profile_in: [String!]
+
+  """All values that are not contained in given list."""
+  profile_not_in: [String!]
+
+  """All values less than the given value."""
+  profile_lt: String
+
+  """All values less than or equal the given value."""
+  profile_lte: String
+
+  """All values greater than the given value."""
+  profile_gt: String
+
+  """All values greater than or equal the given value."""
+  profile_gte: String
+
+  """All values containing the given string."""
+  profile_contains: String
+
+  """All values not containing the given string."""
+  profile_not_contains: String
+
+  """All values starting with the given string."""
+  profile_starts_with: String
+
+  """All values not starting with the given string."""
+  profile_not_starts_with: String
+
+  """All values ending with the given string."""
+  profile_ends_with: String
+
+  """All values not ending with the given string."""
+  profile_not_ends_with: String
 }
 
 input ExpertWhereUniqueInput {

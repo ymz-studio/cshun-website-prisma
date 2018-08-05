@@ -84,7 +84,7 @@ type Expert {
 	id: ID! @unique
 	name: String!
 	introduction: String!
-	img: File!
+	profile: String!
 }
 enum PostCategory {
 	ANIMAL_FARMING #牲口养殖

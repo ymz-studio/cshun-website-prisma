@@ -818,7 +818,7 @@ type Expert implements Node {
   id: ID!
   name: String!
   introduction: String!
-  img(where: FileWhereInput): File!
+  profile: String!
 }
 
 """A connection to a list of items."""
@@ -834,7 +834,7 @@ type ExpertConnection {
 input ExpertCreateInput {
   name: String!
   introduction: String!
-  img: FileCreateOneInput!
+  profile: String!
 }
 
 """An edge in a connection."""
@@ -853,6 +853,8 @@ enum ExpertOrderByInput {
   name_DESC
   introduction_ASC
   introduction_DESC
+  profile_ASC
+  profile_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -863,6 +865,7 @@ type ExpertPreviousValues {
   id: ID!
   name: String!
   introduction: String!
+  profile: String!
 }
 
 type ExpertSubscriptionPayload {
@@ -907,7 +910,7 @@ input ExpertSubscriptionWhereInput {
 input ExpertUpdateInput {
   name: String
   introduction: String
-  img: FileUpdateOneInput
+  profile: String
 }
 
 input ExpertWhereInput {
@@ -1039,7 +1042,46 @@ input ExpertWhereInput {
 
   """All values not ending with the given string."""
   introduction_not_ends_with: String
-  img: FileWhereInput
+  profile: String
+
+  """All values that are not equal to given value."""
+  profile_not: String
+
+  """All values that are contained in given list."""
+  profile_in: [String!]
+
+  """All values that are not contained in given list."""
+  profile_not_in: [String!]
+
+  """All values less than the given value."""
+  profile_lt: String
+
+  """All values less than or equal the given value."""
+  profile_lte: String
+
+  """All values greater than the given value."""
+  profile_gt: String
+
+  """All values greater than or equal the given value."""
+  profile_gte: String
+
+  """All values containing the given string."""
+  profile_contains: String
+
+  """All values not containing the given string."""
+  profile_not_contains: String
+
+  """All values starting with the given string."""
+  profile_starts_with: String
+
+  """All values not starting with the given string."""
+  profile_not_starts_with: String
+
+  """All values ending with the given string."""
+  profile_ends_with: String
+
+  """All values not ending with the given string."""
+  profile_not_ends_with: String
 }
 
 input ExpertWhereUniqueInput {
@@ -3533,6 +3575,8 @@ export type ExpertOrderByInput =   'id_ASC' |
   'name_DESC' |
   'introduction_ASC' |
   'introduction_DESC' |
+  'profile_ASC' |
+  'profile_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -4164,7 +4208,20 @@ export interface ExpertWhereInput {
   introduction_not_starts_with?: String
   introduction_ends_with?: String
   introduction_not_ends_with?: String
-  img?: FileWhereInput
+  profile?: String
+  profile_not?: String
+  profile_in?: String[] | String
+  profile_not_in?: String[] | String
+  profile_lt?: String
+  profile_lte?: String
+  profile_gt?: String
+  profile_gte?: String
+  profile_contains?: String
+  profile_not_contains?: String
+  profile_starts_with?: String
+  profile_not_starts_with?: String
+  profile_ends_with?: String
+  profile_not_ends_with?: String
 }
 
 export interface FileUpdateDataInput {
@@ -4238,7 +4295,7 @@ export interface ExpertWhereUniqueInput {
 export interface ExpertCreateInput {
   name: String
   introduction: String
-  img: FileCreateOneInput
+  profile: String
 }
 
 export interface BusinessSubscriptionWhereInput {
@@ -4486,7 +4543,7 @@ export interface HouseCreateInput {
 export interface ExpertUpdateInput {
   name?: String
   introduction?: String
-  img?: FileUpdateOneInput
+  profile?: String
 }
 
 export interface HotelCreateInput {
@@ -4682,6 +4739,7 @@ export interface ExpertPreviousValues {
   id: ID_Output
   name: String
   introduction: String
+  profile: String
 }
 
 export interface BatchPayload {
@@ -4929,7 +4987,7 @@ export interface Expert extends Node {
   id: ID_Output
   name: String
   introduction: String
-  img: File
+  profile: String
 }
 
 export interface HotelSubscriptionPayload {
