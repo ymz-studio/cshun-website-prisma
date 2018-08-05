@@ -2,7 +2,7 @@ import { Context } from '../utils';
 import { ExpertCreateInput } from '../generated/prisma';
 
 export const Query = {
-	async businesses(parent, args, ctx: Context, info) {
+	async experts(parent, args, ctx: Context, info) {
 		return await ctx.db.query.experts(args, info);
 	}
 };
